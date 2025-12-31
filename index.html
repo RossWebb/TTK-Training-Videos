@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#2563eb">
 	<meta name="referrer" content="strict-origin-when-cross-origin">
-    <title>Trenem Tingting Kos - Critical Thinking Course</title>
+	<link rel="manifest" href="/manifest.json">
+	<title>Trenem Tingting Kos - Critical Thinking Course</title>
     <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiVHJlbmVtIFRpbmdpdGluZyBLb3MiLCJzaG9ydF9uYW1lIjoiVFRLIiwic3RhcnRfdXJsIjoiLyIsImRpc3BsYXkiOiJzdGFuZGFsb25lIiwiYmFja2dyb3VuZF9jb2xvciI6IiNmZmZmZmYiLCJ0aGVtZV9jb2xvciI6IiMyNTYzZWIiLCJpY29ucyI6W3sic3JjIjoiZGF0YTppbWFnZS9zdmcreG1sLCUzQ3N2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScxOTInIGhlaWdodD0nMTkyJyUzRSUzQ3JlY3Qgd2lkdGg9JzE5MicgaGVpZ2h0PScxOTInIGZpbGw9JyUyMzI1NjNlYicvJTNFJTNDdGV4dCB4PSc1MCUyNScgeT0nNTAlMjUnIGZvbnQtc2l6ZT0nOTAnIGZpbGw9J3doaXRlJyB0ZXh0LWFuY2hvcj0nbWlkZGxlJyBkeT0nLjNlbSclM0VUVEslM0MvdGV4dCUzRSUzQy9zdmclM0UiLCJzaXplcyI6IjE5MngxOTIiLCJ0eXBlIjoiaW1hZ2Uvc3ZnK3htbCJ9XX0=">
     <style>
         * {
@@ -355,13 +356,14 @@
 			}
 		}
 
-		// PWA Service Worker Registration (unchanged)
+		// PWA Service Worker Registration
 		if ('serviceWorker' in navigator) {
-			window.addEventListener('load', () => {
-				navigator.serviceWorker.register('data:application/javascript;base64,c2VsZi5hZGRFdmVudExpc3RlbmVyKCdpbnN0YWxsJywgZnVuY3Rpb24oZSkge2Uud2FpdFVudGlsKHNlbGYuc2tpcFdhaXRpbmcoKSl9KTtzZWxmLmFkZEV2ZW50TGlzdGVuZXIoJ2ZldGNoJywgZnVuY3Rpb24oZSkge30pOw==')
-					.catch(err => console.log('SW registration failed'));
-			});
+		    window.addEventListener('load', () => {
+		        navigator.serviceWorker.register('/sw.js');
+		    });
 		}
+
 </script>
 </body>
+
 </html>
