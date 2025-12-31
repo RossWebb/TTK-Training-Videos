@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#2563eb">
+	<meta name="referrer" content="strict-origin-when-cross-origin">
+    <title>Trenem Tingting Kos - Critical Thinking Course</title>
+    <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiVHJlbmVtIFRpbmdpdGluZyBLb3MiLCJzaG9ydF9uYW1lIjoiVFRLIiwic3RhcnRfdXJsIjoiLyIsImRpc3BsYXkiOiJzdGFuZGFsb25lIiwiYmFja2dyb3VuZF9jb2xvciI6IiNmZmZmZmYiLCJ0aGVtZV9jb2xvciI6IiMyNTYzZWIiLCJpY29ucyI6W3sic3JjIjoiZGF0YTppbWFnZS9zdmcreG1sLCUzQ3N2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScxOTInIGhlaWdodD0nMTkyJyUzRSUzQ3JlY3Qgd2lkdGg9JzE5MicgaGVpZ2h0PScxOTInIGZpbGw9JyUyMzI1NjNlYicvJTNFJTNDdGV4dCB4PSc1MCUyNScgeT0nNTAlMjUnIGZvbnQtc2l6ZT0nOTAnIGZpbGw9J3doaXRlJyB0ZXh0LWFuY2hvcj0nbWlkZGxlJyBkeT0nLjNlbSclM0VUVEslM0MvdGV4dCUzRSUzQy9zdmclM0UiLCJzaXplcyI6IjE5MngxOTIiLCJ0eXBlIjoiaW1hZ2Uvc3ZnK3htbCJ9XX0=">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        header {
+            background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .menu {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            padding: 20px;
+            background: #f8fafc;
+        }
+
+        .menu-item {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid #e2e8f0;
+            text-align: center;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.2);
+            border-color: #2563eb;
+        }
+
+        .menu-item h2 {
+            color: #1e293b;
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+
+        .menu-item .count {
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        .video-list {
+            display: none;
+            padding: 20px;
+        }
+
+        .video-list.active {
+            display: block;
+        }
+
+        .back-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #e2e8f0;
+            color: #1e293b;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            font-size: 16px;
+            transition: background 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: #cbd5e1;
+        }
+
+        .video-item {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .video-item:hover {
+            border-color: #2563eb;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.1);
+        }
+
+        .video-item h3 {
+            color: #1e293b;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .video-player {
+            display: none;
+            padding: 20px;
+        }
+
+        .video-player.active {
+            display: block;
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 12px;
+            margin-top: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-title {
+            font-size: 22px;
+            color: #1e293b;
+            margin: 20px 0 10px 0;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .menu {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Trenem Tingting Kos</h1>
+            <p class="subtitle">Critical Thinking Course - Vanuatu</p>
+        </header>
+
+        <div id="mainMenu" class="menu">
+            <div class="menu-item" onclick="showModule('module1')">
+                <h2>📘 Module 1</h2>
+                <p class="count">9 videos</p>
+            </div>
+            <div class="menu-item" onclick="showModule('module2')">
+                <h2>📗 Module 2</h2>
+                <p class="count">9 videos</p>
+            </div>
+            <div class="menu-item" onclick="showModule('module3')">
+                <h2>📙 Module 3</h2>
+                <p class="count">6 videos</p>
+            </div>
+            <div class="menu-item" onclick="showModule('resources')">
+                <h2>📚 Resources</h2>
+                <p class="count">4 videos</p>
+            </div>
+        </div>
+
+        <div id="module1" class="video-list">
+            <button class="back-btn" onclick="showMenu()">← Back to Menu</button>
+            <h2 style="font-size: 24px; color: #1e293b; margin-bottom: 20px;">Module 1</h2>
+            <div class="video-item" onclick="playVideo('Gm0mcrgAhuU', 'TTK Series Module 1 Intro + Lesen 1')">
+                <h3>Intro + Lesen 1</h3>
+            </div>
+            <div class="video-item" onclick="playVideo('Vzr0LEaIJUs', 'TTK Series Module 1 Lesson 2')">
+                <h3>Lesson 2</h3>
+            </div>
+            <div class="video-item" onclick="playVideo('EQCWdVa_Y5Q', 'TTK Module 1 Lesen 3')">
+                <h3>Lesen 3</h3>
+            </div>
+            <div class="video-item" onclick="playVideo('wu-JBpdG0H8', 'TTK Module 1 Lesen 4')">
+                <h3>Lesen 4</h3>
+            </div>
+            <div class="video-item" onclick="playVideo('Wxa53hfmc0E', 'TTK Module 1 Lesen 5')">
+                <h3>Lesen 5</h3>
+            </div>
+            <div class="video-item" onclick="playVideo('eoLk25XWJpc', 'TTK Module 1 Lesen 6')">
+                <h3>Lesen 6</h3>
+            </div>
+            <div class="video-item" onclick="playVideo('6v_DgLeZsbI', 'TTK Module 1 Lesen 7')">
+                <h3>Lesen 7</h3>
+            </div>
+            <div class="video-item" onclick="playVideo('ahR6nbAWsmQ', 'TTK Module 1 Lesen 8')">
+                <h3>Lesen 8</h3>
+            </div>
+            <div class="video-item" onclick="playVideo('dUp0hRhSQeI', 'TTK Module 1 Lesen 8b')">
+                <h3>Lesen 8b</h3>
+            </div>
+        </div>
+
+        <div id="module2" class="video-list">
+            <button class="back-btn" onclick="showMenu()">← Back to Menu</button>
+            <h2 style="font-size: 24px; color: #1e293b; margin-bottom: 20px;">Module 2</h2>
+            <div class="video-item" onclick="playVideo('Z2YrBjiHL3E', 'TTK Series Module 2 Intro')">
+                <h3>Intro</h3>
+            </div>
+            <div class="video-item" onclick="playVideo('DPdDQ3inRoc', 'TTK Series Module 2 Lesson 1')">
+                <h3>Lesson 1</h3>
+            </div>
+            <div class="video-item" onclick="playVideo('FNgaLGpYPHA', 'TTK Series Module 2 Lesson 2')">
+                <h3>Lesson 2</h3>
+            </div>
+            <div class="video-item" onclick="playVideo('Hq8kBo3trfw', 'TTK Series Module 2 Lesson 3')">
+                <h3>Lesson 3</h3>
+            </div>
+            <div class="video-item" onclick="playVideo('f8JhrNZ-S6o', 'TTK Series Module 2 Lesson 4')">
+                <h3>Lesson 4</h3>
+            </div>
+            <div class="video-item" onclick="playVideo('z__-eMsn8-4', 'TTK Series Module 2 Lesson 5')">
+                <h3>Lesson 5</h3>
+            </div>
+            <div class="video-item" onclick="playVideo('0F5AMxB9cRg', 'TTK Series Module 2 Lesson 6')">
+                <h3>Lesson 6</h3>
+            </div>
+            <div class="video-item" onclick="playVideo('oBUXBkTfNoE', 'TTK Series Module 2 Lesson 7')">
+                <h3>Lesson 7</h3>
+            </div>
+            <div class="video-item" onclick="playVideo('EYk8ob0q9Ck', 'TTK Series Module 2 Ol Risos (resources)')">
+                <h3>Ol Risos (resources)</h3>
+            </div>
+        </div>
+
+        <div id="module3" class="video-list">
+            <button class="back-btn" onclick="showMenu()">← Back to Menu</button>
+            <h2 style="font-size: 24px; color: #1e293b; margin-bottom: 20px;">Module 3</h2>
+            <div class="video-item" onclick="playVideo('Z3D5Th-gfAY', 'TTK Module 3 Lesen 2')">
+                <h3>Lesen 2</h3>
+            </div>
+            <div class="video-item" onclick="playVideo('vp44XxkiFnI', 'TTK Module 3 Lesen 3')">
+                <h3>Lesen 3</h3>
+            </div>
+            <div class="video-item" onclick="playVideo('smbvabUHUoQ', 'TTK Module 3 Lesen 4')">
+                <h3>Lesen 4</h3>
+            </div>
+            <div class="video-item" onclick="playVideo('KKeEAXfwbIo', 'TTK Module 3 Lesen 5')">
+                <h3>Lesen 5</h3>
+            </div>
+            <div class="video-item" onclick="playVideo('dKq-N27NMOY', 'TTK Module 3 Lesen 6')">
+                <h3>Lesen 6</h3>
+            </div>
+            <div class="video-item" onclick="playVideo('8S2RsXTsUJ8', 'TTK Module 3 Lesson 7')">
+                <h3>Lesson 7</h3>
+            </div>
+        </div>
+
+        <div id="resources" class="video-list">
+            <button class="back-btn" onclick="showMenu()">← Back to Menu</button>
+            <h2 style="font-size: 24px; color: #1e293b; margin-bottom: 20px;">Resources</h2>
+            <div class="video-item" onclick="playVideo('8lGXluacQ10', 'Bigfala Storian blong Baebol (AI avatar)')">
+                <h3>Bigfala Storian blong Baebol (AI avatar)</h3>
+            </div>
+            <div class="video-item" onclick="playVideo('0Cuoqnhu3lc', 'TTK Bildim Wan Strong Fandesen')">
+                <h3>TTK Bildim Wan Strong Fandesen</h3>
+            </div>
+            <div class="video-item" onclick="playVideo('X3bWMFwDTa0', 'Bigfala Storian blong Baebol in Song - Yanik Tekon')">
+                <h3>Bigfala Storian blong Baebol in Song - Yanik Tekon</h3>
+            </div>
+            <div class="video-item" onclick="playVideo('08RpJjnxOfA', 'Bigfala Storian with action')">
+                <h3>Bigfala Storian with action</h3>
+            </div>
+        </div>
+
+        <div id="videoPlayer" class="video-player">
+            <button class="back-btn" onclick="backToList()">← Back to Videos</button>
+            <h2 class="video-title" id="videoTitle"></h2>
+            <div class="video-wrapper">
+			<iframe id="youtubeFrame" 
+					referrerpolicy="strict-origin-when-cross-origin"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" 
+					frameborder="0" allowfullscreen>
+			</iframe>
+            </div>
+        </div>
+    </div>
+
+	<script>
+		let currentModule = '';
+
+		function showMenu() {
+			document.getElementById('mainMenu').style.display = 'grid';
+			document.querySelectorAll('.video-list').forEach(el => el.style.display = 'none');
+			document.getElementById('videoPlayer').classList.remove('active');
+		}
+
+		function showModule(moduleId) {
+			currentModule = moduleId;
+			document.getElementById('mainMenu').style.display = 'none';
+			document.querySelectorAll('.video-list').forEach(el => el.style.display = 'none');
+			document.getElementById(moduleId).style.display = 'block';
+		}
+
+		function playVideo(videoId, title) {
+			document.getElementById('mainMenu').style.display = 'none';
+			document.querySelectorAll('.video-list').forEach(el => el.style.display = 'none');
+			document.getElementById('videoPlayer').classList.add('active');
+			
+			document.getElementById('videoTitle').textContent = title;
+			const frame = document.getElementById('youtubeFrame');
+			frame.src = `https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1&autoplay=1`;
+		}
+
+		function backToList() {
+			document.getElementById('videoPlayer').classList.remove('active');
+			document.getElementById('youtubeFrame').src = '';
+			if (currentModule) {
+				document.getElementById(currentModule).style.display = 'block';
+			}
+		}
+
+		// PWA Service Worker Registration (unchanged)
+		if ('serviceWorker' in navigator) {
+			window.addEventListener('load', () => {
+				navigator.serviceWorker.register('data:application/javascript;base64,c2VsZi5hZGRFdmVudExpc3RlbmVyKCdpbnN0YWxsJywgZnVuY3Rpb24oZSkge2Uud2FpdFVudGlsKHNlbGYuc2tpcFdhaXRpbmcoKSl9KTtzZWxmLmFkZEV2ZW50TGlzdGVuZXIoJ2ZldGNoJywgZnVuY3Rpb24oZSkge30pOw==')
+					.catch(err => console.log('SW registration failed'));
+			});
+		}
+</script>
+</body>
+</html>
