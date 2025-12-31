@@ -1,0 +1,15 @@
+{
+  "name": "Trenem Tingting Kos",
+  "short_name": "TTK",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2563eb",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='192' height='192'%3E%3Crect width='192' height='192' fill='%23232563eb'/%3E%3Ctext x='50%25' y='50%25' font-size='90' fill='white' text-anchor='middle' dy='.3em'%3ETTK%3C/text%3E%3C/svg%3E",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
+    }
+  ]
+}
