@@ -186,13 +186,6 @@
             }
         }
 
-		#mainMenu {
-		    display: grid;
-		}
-		#mainMenu:not(.active) {
-		    display: none;
-		}
-
 		#installBanner {
 		    display: flex;  /* Add this - was missing */
 		    position: fixed;
@@ -383,16 +376,16 @@
 		let currentModule = '';
 
 		function showMenu() {
-		    document.getElementById('mainMenu').classList.add('active');  // Use class
-		    document.querySelectorAll('.video-list').forEach(el => el.classList.remove('active'));
+		    document.getElementById('mainMenu').style.display = 'grid';  // Original
+		    document.querySelectorAll('.video-list').forEach(el => el.style.display = 'none');
 		    document.getElementById('videoPlayer').classList.remove('active');
 		}
 		
 		function showModule(moduleId) {
 		    currentModule = moduleId;
-		    document.getElementById('mainMenu').classList.remove('active');
-		    document.querySelectorAll('.video-list').forEach(el => el.classList.remove('active'));
-		    document.getElementById(moduleId).classList.add('active');
+		    document.getElementById('mainMenu').style.display = 'none';  // Original
+		    document.querySelectorAll('.video-list').forEach(el => el.style.display = 'none');
+		    document.getElementById(moduleId).style.display = 'block';
 		}
 
 		function playVideo(videoId, title) {
@@ -457,3 +450,4 @@
 </script>
 </body>
 </html>
+
