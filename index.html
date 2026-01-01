@@ -381,6 +381,32 @@
 			}
 		}
 
+		// PWA Install Detection
+		window.addEventListener('appinstalled', () => {
+		    deferredPrompt = null;
+		    document.getElementById('installBanner').style.display = 'none';
+		});
+		
+		function installApp() {
+		    if (deferredPrompt) {
+		        deferredPrompt.prompt();
+		        deferredPrompt.userChoice.then((choiceResult) => {
+		            if (choiceResult.outcome === 'accepted') {
+		                document.getElementById('installBanner').style.display = 'none';
+		            }
+		            deferredPrompt = null;
+		        });
+		    }
+		}
+
+		// Apple PWA Detection
+		if ('safari' in window && !window.chrome) {
+		    setTimeout(() => {
+		        document.getElementById('appleInstall').style.display = 'block';
+		    }, 2000);
+		}
+
+
 		// PWA Service Worker Registration
 		if ('serviceWorker' in navigator) {
 		    window.addEventListener('load', () => {
@@ -392,4 +418,5 @@
 </body>
 
 </html>
+
 
