@@ -7,6 +7,14 @@
 	<meta name="referrer" content="strict-origin-when-cross-origin">
 	<link rel="manifest" href="/manifest.json">
 	<title>Trenem Tingting Kos - Critical Thinking Course</title>
+	<script>
+	    let deferredPrompt;
+	    window.addEventListener('beforeinstallprompt', (e) => {
+	        e.preventDefault();
+	        deferredPrompt = e;
+	        document.getElementById('installBtn').style.display = 'block';
+	    });
+	</script>
 
 	<style>
         * {
@@ -339,51 +347,74 @@
     </div>
 
 	<script>
-	    let currentModule = '';
-	    let deferredPrompt;  // ADD THIS LINE
-	
-	    // Your existing functions (showMenu, showModule, playVideo, backToList)...
-	
-	    // PWA Install - ALL CODE HERE
-	    window.addEventListener('beforeinstallprompt', (e) => {  // ADD FULL LISTENER
-	        e.preventDefault();
-	        deferredPrompt = e;
-	        document.getElementById('installBanner').style.display = 'flex';  // Use flex for better layout
-	    });
-	
-	    window.addEventListener('appinstalled', () => {
-	        deferredPrompt = null;
-	        document.getElementById('installBanner').style.display = 'none';
-	    });
-	
-	    function installApp() {
-	        if (deferredPrompt) {
-	            deferredPrompt.prompt();
-	            deferredPrompt.userChoice.then((choiceResult) => {
-	                if (choiceResult.outcome === 'accepted') {
-	                    document.getElementById('installBanner').style.display = 'none';
-	                }
-	                deferredPrompt = null;
-	            });
-	        }
-	    }
-	
-	    // Apple detection
-	    if (navigator.userAgent.includes('iPhone') || navigator.userAgent.includes('iPad')) {
-	        setTimeout(() => {
-	            document.getElementById('appleInstall').style.display = 'block';
-	        }, 2000);
-	    }
-	
-	    // Service Worker
-	    if ('serviceWorker' in navigator) {
-	        window.addEventListener('load', () => {
-	            navigator.serviceWorker.register('/sw.js').catch(console.error);
-	        });
-	    }
-	</script>
+		let currentModule = '';
+
+		function showMenu() {
+			document.getElementById('mainMenu').style.display = 'grid';
+			document.querySelectorAll('.video-list').forEach(el => el.style.display = 'none');
+			document.getElementById('videoPlayer').classList.remove('active');
+		}
+
+		function showModule(moduleId) {
+			currentModule = moduleId;
+			document.getElementById('mainMenu').style.display = 'none';
+			document.querySelectorAll('.video-list').forEach(el => el.style.display = 'none');
+			document.getElementById(moduleId).style.display = 'block';
+		}
+
+		function playVideo(videoId, title) {
+			document.getElementById('mainMenu').style.display = 'none';
+			document.querySelectorAll('.video-list').forEach(el => el.style.display = 'none');
+			document.getElementById('videoPlayer').classList.add('active');
+			
+			document.getElementById('videoTitle').textContent = title;
+			const frame = document.getElementById('youtubeFrame');
+			frame.src = `https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1&autoplay=1`;
+		}
+
+		function backToList() {
+			document.getElementById('videoPlayer').classList.remove('active');
+			document.getElementById('youtubeFrame').src = '';
+			if (currentModule) {
+				document.getElementById(currentModule).style.display = 'block';
+			}
+		}
+
+		// PWA Install Detection
+		window.addEventListener('appinstalled', () => {
+		    deferredPrompt = null;
+		    document.getElementById('installBanner').style.display = 'none';
+		});
+		
+		function installApp() {
+		    if (deferredPrompt) {
+		        deferredPrompt.prompt();
+		        deferredPrompt.userChoice.then((choiceResult) => {
+		            if (choiceResult.outcome === 'accepted') {
+		                document.getElementById('installBanner').style.display = 'none';
+		            }
+		            deferredPrompt = null;
+		        });
+		    }
+		}
+
+		// Apple PWA Detection
+		if ('safari' in window && !window.chrome) {
+		    setTimeout(() => {
+		        document.getElementById('appleInstall').style.display = 'block';
+		    }, 2000);
+		}
+
+
+		// PWA Service Worker Registration
+		if ('serviceWorker' in navigator) {
+		    window.addEventListener('load', () => {
+		        navigator.serviceWorker.register('/sw.js');
+		    });
+		}
+
+</script>
 </body>
+
 </html>
-
-
 
