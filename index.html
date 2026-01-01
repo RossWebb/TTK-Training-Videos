@@ -93,14 +93,12 @@
             font-size: 14px;
         }
 
-        .video-list {
-            display: none;
-            padding: 20px;
-        }
-
-        .video-list.active {
-            display: block;
-        }
+		.video-list {
+		    display: none;
+		}
+		.video-list.active {
+		    display: block;
+		}
 
         .back-btn {
             display: inline-block;
@@ -187,6 +185,13 @@
                 grid-template-columns: 1fr;
             }
         }
+
+		#mainMenu {
+		    display: grid;
+		}
+		#mainMenu:not(.active) {
+		    display: none;
+		}
 
 		#installBanner {
 		    display: flex;  /* Add this - was missing */
@@ -378,16 +383,16 @@
 		let currentModule = '';
 
 		function showMenu() {
-			document.getElementById('mainMenu').style.display = 'grid';
-			document.querySelectorAll('.video-list').forEach(el => el.style.display = 'none');
-			document.getElementById('videoPlayer').classList.remove('active');
+		    document.getElementById('mainMenu').classList.add('active');  // Use class
+		    document.querySelectorAll('.video-list').forEach(el => el.classList.remove('active'));
+		    document.getElementById('videoPlayer').classList.remove('active');
 		}
-
+		
 		function showModule(moduleId) {
-			currentModule = moduleId;
-			document.getElementById('mainMenu').style.display = 'none';
-			document.querySelectorAll('.video-list').forEach(el => el.style.display = 'none');
-			document.getElementById(moduleId).style.display = 'block';
+		    currentModule = moduleId;
+		    document.getElementById('mainMenu').classList.remove('active');
+		    document.querySelectorAll('.video-list').forEach(el => el.classList.remove('active'));
+		    document.getElementById(moduleId).classList.add('active');
 		}
 
 		function playVideo(videoId, title) {
@@ -451,10 +456,4 @@
 
 </script>
 </body>
-
 </html>
-
-
-
-
-
