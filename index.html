@@ -4,19 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#2563eb">
-	<meta name="referrer" content="strict-origin-when-cross-origin">
-	<link rel="manifest" href="/manifest.json">
-	<title>Trenem Tingting Kos - Critical Thinking Course</title>
-	<script>
-	    let deferredPrompt;
-	    window.addEventListener('beforeinstallprompt', (e) => {
-	        e.preventDefault();
-	        deferredPrompt = e;
-	        document.getElementById('installBtn').style.display = 'block';
-	    });
-	</script>
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <link rel="manifest" href="/manifest.json">
+    <title>Trenem Tingting Kos - Critical Thinking Course</title>
 
-	<style>
+    <style>
         * {
             margin: 0;
             padding: 0;
@@ -56,8 +48,6 @@
             opacity: 0.9;
         }
 
-		
-
         .menu {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -93,12 +83,15 @@
             font-size: 14px;
         }
 
-		.video-list {
-		    display: none;
-		}
-		.video-list.active {
-		    display: block;
-		}
+        .video-list {
+            display: none;
+            padding: 20px;
+            background: #f8fafc;
+        }
+
+        .video-list.active {
+            display: block;
+        }
 
         .back-btn {
             display: inline-block;
@@ -172,6 +165,76 @@
             margin: 20px 0 10px 0;
         }
 
+        #installBanner {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: #2563eb;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            z-index: 1000;
+            font-weight: 600;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        #installBtn {
+            background: #1e40af;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        #installBtn:hover {
+            background: #1e3a8a;
+        }
+
+        .close-banner-btn {
+            background: transparent;
+            color: white;
+            border: 1px solid white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        #appleInstall {
+            display: none;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.9);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            max-width: 300px;
+            z-index: 1001;
+            font-size: 14px;
+            line-height: 1.5;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+        }
+
+        .apple-close-btn {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            margin-top: 10px;
+            cursor: pointer;
+            width: 100%;
+        }
+
         @media (max-width: 768px) {
             body {
                 padding: 10px;
@@ -184,36 +247,14 @@
             .menu {
                 grid-template-columns: 1fr;
             }
+
+            #appleInstall {
+                right: 10px;
+                left: 10px;
+                max-width: none;
+            }
         }
-
-		#installBanner {
-		    display: flex;  /* Add this - was missing */
-		    position: fixed;
-		    top: 0;
-		    left: 0;
-		    right: 0;
-		    background: #ef4444;
-		    color: white;
-		    padding: 15px;
-		    text-align: center;
-		    z-index: 1000;
-		    font-weight: 600;
-		    justify-content: center;
-		    align-items: center;
-		    gap: 10px;
-		}
-
-		#installBtn {
-		    background: #dc2626;
-		    color: white;
-		    border: none;
-		    padding: 10px 20px;
-		    border-radius: 25px;
-		    font-size: 16px;
-		    cursor: pointer;
-		}
-
-	</style>
+    </style>
 </head>
 <body>
     <div class="container">
@@ -222,19 +263,18 @@
             <p class="subtitle">Ol Video klip blong helpem tija</p>
         </header>
 
-		<div id="installBanner" style="display: none; position: fixed; top: 0; left: 0; right: 0; background: #ef4444; color: white; padding: 15px; text-align: center; z-index: 1000; font-weight: 600;">
-		    <button id="installBtn" onclick="installApp()" style="background: #dc2626; color: white; border: none; padding: 10px 20px; border-radius: 25px; font-size: 16px; cursor: pointer; margin-right: 10px;">📱 Install App</button>
-		    <button onclick="document.getElementById('installBanner').style.display='none'" style="background: transparent; color: white; border: 1px solid white; padding: 10px 15px; border-radius: 20px; cursor: pointer;">✕</button>
-		</div>
-		
-		<div id="appleInstall" style="display: none; position: fixed; top: 20px; right: 20px; background: rgba(0,0,0,0.9); color: white; padding: 20px; border-radius: 12px; max-width: 300px; z-index: 1001; font-size: 14px; line-height: 1.5;">
-		    <strong>📱 Install on iPhone/iPad</strong><br>
-		    1️⃣ Tap <strong>Share</strong> button<br>
-		    2️⃣ Scroll to <strong>Add to Home Screen</strong><br>
-		    3️⃣ Tap <strong>Add</strong><br>
-		    <button onclick="document.getElementById('appleInstall').style.display='none'" style="background: #2563eb; color: white; border: none; padding: 10px 20px; border-radius: 8px; margin-top: 10px; cursor: pointer;">Got it!</button>
-		</div>
-
+        <div id="installBanner">
+            <button id="installBtn" onclick="installApp()">📱 Install App</button>
+            <button class="close-banner-btn" onclick="closeBanner()">✕</button>
+        </div>
+        
+        <div id="appleInstall">
+            <strong>📱 Install on iPhone/iPad</strong><br><br>
+            1️⃣ Tap <strong>Share</strong> button<br>
+            2️⃣ Scroll to <strong>Add to Home Screen</strong><br>
+            3️⃣ Tap <strong>Add</strong><br>
+            <button class="apple-close-btn" onclick="closeAppleBanner()">Got it!</button>
+        </div>
 
         <div id="mainMenu" class="menu">
             <div class="menu-item" onclick="showModule('module1')">
@@ -363,91 +403,116 @@
             <button class="back-btn" onclick="backToList()">← Back to Videos</button>
             <h2 class="video-title" id="videoTitle"></h2>
             <div class="video-wrapper">
-			<iframe id="youtubeFrame" 
-					referrerpolicy="strict-origin-when-cross-origin"
-					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" 
-					frameborder="0" allowfullscreen>
-			</iframe>
+                <iframe id="youtubeFrame" 
+                        referrerpolicy="strict-origin-when-cross-origin"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" 
+                        frameborder="0" allowfullscreen>
+                </iframe>
             </div>
         </div>
     </div>
 
-	<script>
-		let currentModule = '';
+    <script>
+        let currentModule = '';
+        let deferredPrompt;
 
-		function showMenu() {
-		    document.getElementById('mainMenu').style.display = 'grid';  // Original
-		    document.querySelectorAll('.video-list').forEach(el => el.style.display = 'none');
-		    document.getElementById('videoPlayer').classList.remove('active');
-		}
-		
-		function showModule(moduleId) {
-		    currentModule = moduleId;
-		    document.getElementById('mainMenu').style.display = 'none';  // Original
-		    document.querySelectorAll('.video-list').forEach(el => el.style.display = 'none');
-		    document.getElementById(moduleId).style.display = 'block';
-		}
+        function showMenu() {
+            document.getElementById('mainMenu').style.display = 'grid';
+            document.querySelectorAll('.video-list').forEach(el => {
+                el.classList.remove('active');
+                el.style.display = 'none';
+            });
+            document.getElementById('videoPlayer').classList.remove('active');
+        }
+        
+        function showModule(moduleId) {
+            currentModule = moduleId;
+            document.getElementById('mainMenu').style.display = 'none';
+            document.querySelectorAll('.video-list').forEach(el => {
+                el.classList.remove('active');
+                el.style.display = 'none';
+            });
+            const module = document.getElementById(moduleId);
+            module.classList.add('active');
+            module.style.display = 'block';
+        }
 
-		function playVideo(videoId, title) {
-			document.getElementById('mainMenu').style.display = 'none';
-			document.querySelectorAll('.video-list').forEach(el => el.style.display = 'none');
-			document.getElementById('videoPlayer').classList.add('active');
-			
-			document.getElementById('videoTitle').textContent = title;
-			const frame = document.getElementById('youtubeFrame');
-			frame.src = `https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1&autoplay=1`;
-		}
+        function playVideo(videoId, title) {
+            document.getElementById('mainMenu').style.display = 'none';
+            document.querySelectorAll('.video-list').forEach(el => {
+                el.classList.remove('active');
+                el.style.display = 'none';
+            });
+            document.getElementById('videoPlayer').classList.add('active');
+            
+            document.getElementById('videoTitle').textContent = title;
+            const frame = document.getElementById('youtubeFrame');
+            frame.src = `https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1&autoplay=1`;
+        }
 
-		function backToList() {
-			document.getElementById('videoPlayer').classList.remove('active');
-			document.getElementById('youtubeFrame').src = '';
-			if (currentModule) {
-				document.getElementById(currentModule).style.display = 'block';
-			}
-		}
+        function backToList() {
+            document.getElementById('videoPlayer').classList.remove('active');
+            document.getElementById('youtubeFrame').src = '';
+            if (currentModule) {
+                const module = document.getElementById(currentModule);
+                module.classList.add('active');
+                module.style.display = 'block';
+            }
+        }
 
-	    let deferredPrompt;
-	
-	    // PWA Install Detection
-	    window.addEventListener('appinstalled', () => {
-	        deferredPrompt = null;
-	        document.getElementById('installBanner').style.display = 'none';
-	    });
-	    
-	    window.addEventListener('beforeinstallprompt', (e) => {
-	        e.preventDefault();
-	        deferredPrompt = e;
-	        document.getElementById('installBanner').style.display = 'flex';  // Show whole banner
-	    });
-	    
-	    function installApp() {
-	        if (deferredPrompt) {
-	            deferredPrompt.prompt();
-	            deferredPrompt.userChoice.then((choiceResult) => {
-	                if (choiceResult.outcome === 'accepted') {
-	                    document.getElementById('installBanner').style.display = 'none';
-	                }
-	                deferredPrompt = null;
-	            });
-	        }
-	    }
+        function closeBanner() {
+            document.getElementById('installBanner').style.display = 'none';
+        }
 
-		// Apple PWA Detection
-		if ('safari' in window && !window.chrome) {
-		    setTimeout(() => {
-		        document.getElementById('appleInstall').style.display = 'block';
-		    }, 2000);
-		}
+        function closeAppleBanner() {
+            document.getElementById('appleInstall').style.display = 'none';
+        }
 
+        // PWA Install Detection
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            document.getElementById('installBanner').style.display = 'flex';
+        });
 
-		// PWA Service Worker Registration
-		if ('serviceWorker' in navigator) {
-		    window.addEventListener('load', () => {
-		        navigator.serviceWorker.register('/sw.js');
-		    });
-		}
+        window.addEventListener('appinstalled', () => {
+            deferredPrompt = null;
+            document.getElementById('installBanner').style.display = 'none';
+        });
+        
+        function installApp() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('User accepted the install prompt');
+                    }
+                    deferredPrompt = null;
+                    document.getElementById('installBanner').style.display = 'none';
+                });
+            }
+        }
 
-</script>
+        // Apple PWA Detection (iOS/Safari)
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        const isInStandaloneMode = ('standalone' in window.navigator) && (window.navigator.standalone);
+        
+        if (isIOS && !isInStandaloneMode) {
+            setTimeout(() => {
+                document.getElementById('appleInstall').style.display = 'block';
+            }, 3000);
+        }
+
+        // PWA Service Worker Registration
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js').then(registration => {
+                    console.log('Service Worker registered successfully:', registration.scope);
+                }).catch(error => {
+                    console.log('Service Worker registration failed:', error);
+                });
+            });
+        }
+    </script>
 </body>
 </html>
-
