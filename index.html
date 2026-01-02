@@ -165,6 +165,24 @@
             margin: 20px 0 10px 0;
         }
 
+        .fullscreen-btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 15px;
+            font-size: 16px;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+
+        .fullscreen-btn:hover {
+            background: #1e40af;
+        }
+
         #installBanner {
             display: none;
             position: fixed;
@@ -402,13 +420,14 @@
         <div id="videoPlayer" class="video-player">
             <button class="back-btn" onclick="backToList()">← Back to Videos</button>
             <h2 class="video-title" id="videoTitle"></h2>
-            <div class="video-wrapper">
+            <div class="video-wrapper" id="videoWrapper">
                 <iframe id="youtubeFrame" 
                         referrerpolicy="strict-origin-when-cross-origin"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" 
                         frameborder="0" allowfullscreen>
                 </iframe>
             </div>
+            <button class="fullscreen-btn" onclick="enterFullscreen()">🖥️ Watch Fullscreen (Landscape)</button>
         </div>
     </div>
 
@@ -468,30 +487,67 @@
             document.getElementById('appleInstall').style.display = 'none';
         }
 
-        // PWA Install Detection
+        function enterFullscreen() {
+            const wrapper = document.getElementById('videoWrapper');
+            
+            // Request fullscreen
+            if (wrapper.requestFullscreen) {
+                wrapper.requestFullscreen();
+            } else if (wrapper.webkitRequestFullscreen) { // Safari
+                wrapper.webkitRequestFullscreen();
+            } else if (wrapper.mozRequestFullScreen) { // Firefox
+                wrapper.mozRequestFullScreen();
+            } else if (wrapper.msRequestFullscreen) { // IE/Edge
+                wrapper.msRequestFullscreen();
+            }
+            
+            // Try to lock to landscape orientation
+            if (screen.orientation && screen.orientation.lock) {
+                screen.orientation.lock('landscape').catch(err => {
+                    console.log('Orientation lock not supported:', err);
+                });
+            }
+        }
+
+        // PWA Install Detection with debugging
         window.addEventListener('beforeinstallprompt', (e) => {
+            console.log('✅ beforeinstallprompt event fired!');
             e.preventDefault();
             deferredPrompt = e;
             document.getElementById('installBanner').style.display = 'flex';
         });
 
         window.addEventListener('appinstalled', () => {
+            console.log('✅ App installed successfully!');
             deferredPrompt = null;
             document.getElementById('installBanner').style.display = 'none';
         });
         
         function installApp() {
+            console.log('Install button clicked');
             if (deferredPrompt) {
+                console.log('Showing install prompt...');
                 deferredPrompt.prompt();
                 deferredPrompt.userChoice.then((choiceResult) => {
+                    console.log('User choice:', choiceResult.outcome);
                     if (choiceResult.outcome === 'accepted') {
                         console.log('User accepted the install prompt');
                     }
                     deferredPrompt = null;
                     document.getElementById('installBanner').style.display = 'none';
                 });
+            } else {
+                console.log('❌ No deferred prompt available');
+                alert('Install prompt not available. Make sure you:\n1. Are using HTTPS\n2. Have a valid manifest.json\n3. Have a service worker registered\n4. Haven\'t already installed the app');
             }
         }
+
+        // Debug PWA readiness
+        console.log('🔍 PWA Debug Info:');
+        console.log('HTTPS:', window.location.protocol === 'https:');
+        console.log('Service Worker supported:', 'serviceWorker' in navigator);
+        console.log('iOS Device:', isIOS);
+        console.log('Standalone mode:', isInStandaloneMode);
 
         // Apple PWA Detection (iOS/Safari)
         const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
