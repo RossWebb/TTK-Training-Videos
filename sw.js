@@ -1,7 +1,9 @@
 const CACHE_NAME = 'ttk-v1';
 const urlsToCache = [
-  '/',
-  '/index.html'
+  './',
+  './index.html',
+  './icon-192.png',
+  './icon-512.png'
 ];
 
 self.addEventListener('install', event => {
