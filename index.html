@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#2563eb">
     <meta name="referrer" content="strict-origin-when-cross-origin">
-    <link rel="manifest" href="/manifest.json">
+    <link rel="manifest" href="./manifest.json">
     <title>Trenem Tingting Kos - Critical Thinking Course</title>
 
     <style>
@@ -434,6 +434,10 @@
     <script>
         let currentModule = '';
         let deferredPrompt;
+        
+        // Define iOS detection variables FIRST
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        const isInStandaloneMode = ('standalone' in window.navigator) && (window.navigator.standalone);
 
         function showMenu() {
             document.getElementById('mainMenu').style.display = 'grid';
@@ -550,19 +554,23 @@
         console.log('Standalone mode:', isInStandaloneMode);
 
         // Apple PWA Detection (iOS/Safari)
-        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-        const isInStandaloneMode = ('standalone' in window.navigator) && (window.navigator.standalone);
-        
         if (isIOS && !isInStandaloneMode) {
             setTimeout(() => {
                 document.getElementById('appleInstall').style.display = 'block';
             }, 3000);
         }
 
+        // Debug PWA readiness
+        console.log('🔍 PWA Debug Info:');
+        console.log('HTTPS:', window.location.protocol === 'https:');
+        console.log('Service Worker supported:', 'serviceWorker' in navigator);
+        console.log('iOS Device:', isIOS);
+        console.log('Standalone mode:', isInStandaloneMode);
+
         // PWA Service Worker Registration
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js').then(registration => {
+                navigator.serviceWorker.register('./sw.js').then(registration => {
                     console.log('Service Worker registered successfully:', registration.scope);
                 }).catch(error => {
                     console.log('Service Worker registration failed:', error);
