@@ -474,6 +474,20 @@
             frame.src = `https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1&autoplay=1`;
         }
 
+            const fullscreenBtn = document.querySelector('.fullscreen-btn');
+            if (isIOS) {
+                fullscreenBtn.textContent = '📱 Tap the fullscreen icon in bottom-right of video';
+                fullscreenBtn.style.background = '#64748b';
+                fullscreenBtn.style.cursor = 'default';
+                fullscreenBtn.onclick = null;
+            } else {
+                // Reset for non-iOS (in case user switches devices)
+                fullscreenBtn.textContent = '🖥️ Watch Fullscreen (Landscape)';
+                fullscreenBtn.style.background = '#2563eb';
+                fullscreenBtn.style.cursor = 'pointer';
+                fullscreenBtn.onclick = enterFullscreen;
+            }
+
         function backToList() {
             document.getElementById('videoPlayer').classList.remove('active');
             document.getElementById('youtubeFrame').src = '';
@@ -581,5 +595,6 @@
     </script>
 </body>
 </html>
+
 
 
