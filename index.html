@@ -202,8 +202,8 @@
         }
 
         #installBtn {
-            background: #991b1;
-            color: white;
+            background: white !important;    /* Force white background */
+            color: #dc2626 !important;       /* Red text */
             border: none;
             padding: 10px 20px;
             border-radius: 25px;
@@ -211,9 +211,10 @@
             cursor: pointer;
             font-weight: 600;
         }
-
+        
         #installBtn:hover {
-            background: #1e3a8a;
+            background: #f3f4f6 !important;  /* Light gray on hover */
+            color: #991b1b !important;       /* Darker red text on hover */
         }
 
         .close-banner-btn {
@@ -580,4 +581,5 @@
     </script>
 </body>
 </html>
+
 
