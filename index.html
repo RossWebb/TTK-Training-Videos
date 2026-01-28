@@ -403,12 +403,12 @@
 
         <div id="resources" class="video-list">
             <button class="back-btn" onclick="showMenu()">← Back to Menu</button>
-            <h2 style="font-size: 24px; color: #1e293b; margin-bottom: 20px;">Resources</h2>
-            <div class="video-item" onclick="playVideo('8lGXluacQ10', 'Bigfala Storian blong Baebol')">
-                <h3>Bigfala Storian blong Baebol (video)</h3>
-            </div>
+            <h2 style="font-size: 24px; color: #1e293b; margin-bottom: 20px;">Ol Risos</h2>
             <div class="video-item" onclick="playVideo('0Cuoqnhu3lc', 'TTK Bildim Wan Strong Fandesen')">
                 <h3>TTK Bildim Wan Strong Fandesen (video)</h3>
+            </div>
+            <div class="video-item" onclick="playVideo('8lGXluacQ10', 'Bigfala Storian blong Baebol')">
+                <h3>Bigfala Storian blong Baebol (video)</h3>
             </div>
             <div class="video-item" onclick="playVideo('X3bWMFwDTa0', 'Bigfala Storian blong Baebol in Song')">
                 <h3>Bigfala Storian blong Baebol in Song (video)</h3>
@@ -418,6 +418,23 @@
             </div>
             <div class="video-item" onclick="playVideo('uLCVU0LEWlM', 'Plan blong God long saed blong Kastom')">
                 <h3>Plan blong God long saed blong Kastom (video)</h3>
+            </div>
+            <!-- Document items -->
+            <div class="video-item" onclick="openDocument('https://drive.google.com/file/d/1dQqvqvyRNlOszZHYO_5cSX1Bu_DqihJi/view?usp=sharing', 'Kastom & Bible Rules')">
+                <h3>Plan blong GOd long saed blong Kastom (PDF)</h3>
+            </div>
+        
+            <div class="video-item" onclick="openDocument('https://your-site.com/resources/memory-verses.pdf', 'Memory Verses')">
+                <h3>Memory Verses (PDF document)</h3>
+            </div>
+        
+            <div class="video-item" onclick="openDocument('https://your-site.com/resources/family-tree-guide.pdf', 'Family Tree Guide')">
+                <h3>Family Tree Guide (PDF)</h3>
+            </div>
+
+            <!-- Link to another PWA -->
+            <div class="video-item" onclick="openResource('https://shr.pn/AskBible/', 'Bible Study App')">
+                <h3>Bible Study App 🌐</h3>
             </div>
         </div>
 
@@ -598,6 +615,7 @@
     </script>
 </body>
 </html>
+
 
 
 
