@@ -119,6 +119,26 @@
             cursor: pointer;
             transition: all 0.3s ease;
         }
+		
+		.video-item {
+			display: flex;
+			gap: 15px;
+			align-items: center;
+		}
+
+		.video-thumb {
+			flex-shrink: 0;
+			width: 120px;
+			height: 68px; /* 16:9 */
+			border-radius: 6px;
+			background-size: cover;
+			background-position: center;
+			box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+		}
+
+		.video-item h3 {
+			margin: 0;
+}		
 
         .video-item:hover {
             border-color: #2563eb;
@@ -317,111 +337,167 @@
         <div id="module1" class="video-list">
             <button class="back-btn" onclick="showMenu()">← Back to Menu</button>
             <h2 style="font-size: 24px; color: #1e293b; margin-bottom: 20px;">Module 1</h2>
-            <div class="video-item" onclick="playVideo('Gm0mcrgAhuU', 'TTK Series Module 1 Intro + Lesen 1')">
-                <h3>Intro + Lesen 1 (1)</h3>
-            </div>
-            <div class="video-item" onclick="playVideo('Vzr0LEaIJUs', 'TTK Series Module 1 Lesson 2')">
-                <h3>Lesson 2 (2)</h3>
-            </div>
-            <div class="video-item" onclick="playVideo('EQCWdVa_Y5Q', 'TTK Module 1 Lesen 3')">
-                <h3>Lesen 3 (3)</h3>
-            </div>
-            <div class="video-item" onclick="playVideo('wu-JBpdG0H8', 'TTK Module 1 Lesen 4')">
-                <h3>Lesen 4 (4)</h3>
-            </div>
-            <div class="video-item" onclick="playVideo('Wxa53hfmc0E', 'TTK Module 1 Lesen 5')">
-                <h3>Lesen 5 (5)</h3>
-            </div>
-            <div class="video-item" onclick="playVideo('eoLk25XWJpc', 'TTK Module 1 Lesen 6')">
-                <h3>Lesen 6 (6)</h3>
-            </div>
-            <div class="video-item" onclick="playVideo('6v_DgLeZsbI', 'TTK Module 1 Lesen 7')">
-                <h3>Lesen 7 (7)</h3>
-            </div>
-            <div class="video-item" onclick="playVideo('ahR6nbAWsmQ', 'TTK Module 1 Lesen 8')">
-                <h3>Lesen 8 (8)</h3>
-            </div>
-            <div class="video-item" onclick="playVideo('dUp0hRhSQeI', 'TTK Module 1 Lesen 8b')">
-                <h3>Lesen 8b (9)</h3>
-            </div>
+			<div class="video-item" data-yt="Gm0mcrgAhuU"
+				 onclick="playVideo('Gm0mcrgAhuU', 'TTK Series Module 1 Intro + Lesen 1')">
+				<h3>Intro + Lesen 1 (1)</h3>
+			</div>
+
+			<div class="video-item" data-yt="Vzr0LEaIJUs"
+				 onclick="playVideo('Vzr0LEaIJUs', 'TTK Series Module 1 Lesson 2')">
+				<h3>Lesson 2 (2)</h3>
+			</div>
+
+			<div class="video-item" data-yt="EQCWdVa_Y5Q"
+				 onclick="playVideo('EQCWdVa_Y5Q', 'TTK Module 1 Lesen 3')">
+				<h3>Lesen 3 (3)</h3>
+			</div>
+
+			<div class="video-item" data-yt="wu-JBpdG0H8"
+				 onclick="playVideo('wu-JBpdG0H8', 'TTK Module 1 Lesen 4')">
+				<h3>Lesen 4 (4)</h3>
+			</div>
+
+			<div class="video-item" data-yt="Wxa53hfmc0E"
+				 onclick="playVideo('Wxa53hfmc0E', 'TTK Module 1 Lesen 5')">
+				<h3>Lesen 5 (5)</h3>
+			</div>
+
+			<div class="video-item" data-yt="eoLk25XWJpc"
+				 onclick="playVideo('eoLk25XWJpc', 'TTK Module 1 Lesen 6')">
+				<h3>Lesen 6 (6)</h3>
+			</div>
+
+			<div class="video-item" data-yt="6v_DgLeZsbI"
+				 onclick="playVideo('6v_DgLeZsbI', 'TTK Module 1 Lesen 7')">
+				<h3>Lesen 7 (7)</h3>
+			</div>
+
+			<div class="video-item" data-yt="ahR6nbAWsmQ"
+				 onclick="playVideo('ahR6nbAWsmQ', 'TTK Module 1 Lesen 8')">
+				<h3>Lesen 8 (8)</h3>
+			</div>
+
+			<div class="video-item" data-yt="dUp0hRhSQeI"
+				 onclick="playVideo('dUp0hRhSQeI', 'TTK Module 1 Lesen 8b')">
+				<h3>Lesen 8b (9)</h3>
+			</div>
         </div>
 
         <div id="module2" class="video-list">
             <button class="back-btn" onclick="showMenu()">← Back to Menu</button>
             <h2 style="font-size: 24px; color: #1e293b; margin-bottom: 20px;">Module 2</h2>
-            <div class="video-item" onclick="playVideo('Z2YrBjiHL3E', 'TTK Series Module 2 Intro')">
-                <h3>Intro</h3>
-            </div>
-            <div class="video-item" onclick="playVideo('DPdDQ3inRoc', 'TTK Series Module 2 Lesson 1')">
-                <h3>Lesson 1 (11)</h3>
-            </div>
-            <div class="video-item" onclick="playVideo('FNgaLGpYPHA', 'TTK Series Module 2 Lesson 2')">
-                <h3>Lesson 2 (12)</h3>
-            </div>
-            <div class="video-item" onclick="playVideo('Hq8kBo3trfw', 'TTK Series Module 2 Lesson 3')">
-                <h3>Lesson 3 (13)</h3>
-            </div>
-            <div class="video-item" onclick="playVideo('f8JhrNZ-S6o', 'TTK Series Module 2 Lesson 4')">
-                <h3>Lesson 4 (14)</h3>
-            </div>
-            <div class="video-item" onclick="playVideo('z__-eMsn8-4', 'TTK Series Module 2 Lesson 5')">
-                <h3>Lesson 5 (15)</h3>
-            </div>
-            <div class="video-item" onclick="playVideo('0F5AMxB9cRg', 'TTK Series Module 2 Lesson 6')">
-                <h3>Lesson 6 (16)</h3>
-            </div>
-            <div class="video-item" onclick="playVideo('oBUXBkTfNoE', 'TTK Series Module 2 Lesson 7')">
-                <h3>Lesson 7 (17)</h3>
-            </div>
-            <div class="video-item" onclick="playVideo('EYk8ob0q9Ck', 'TTK Series Module 2 Ol Risos (resources)')">
-                <h3>Ol Risos (resources)</h3>
-            </div>
+			<div class="video-item" data-yt="Z2YrBjiHL3E"
+				 onclick="playVideo('Z2YrBjiHL3E', 'TTK Series Module 2 Intro')">
+				<h3>Intro</h3>
+			</div>
+
+			<div class="video-item" data-yt="DPdDQ3inRoc"
+				 onclick="playVideo('DPdDQ3inRoc', 'TTK Series Module 2 Lesson 1')">
+				<h3>Lesson 1 (11)</h3>
+			</div>
+
+			<div class="video-item" data-yt="FNgaLGpYPHA"
+				 onclick="playVideo('FNgaLGpYPHA', 'TTK Series Module 2 Lesson 2')">
+				<h3>Lesson 2 (12)</h3>
+			</div>
+
+			<div class="video-item" data-yt="Hq8kBo3trfw"
+				 onclick="playVideo('Hq8kBo3trfw', 'TTK Series Module 2 Lesson 3')">
+				<h3>Lesson 3 (13)</h3>
+			</div>
+
+			<div class="video-item" data-yt="f8JhrNZ-S6o"
+				 onclick="playVideo('f8JhrNZ-S6o', 'TTK Series Module 2 Lesson 4')">
+				<h3>Lesson 4 (14)</h3>
+			</div>
+
+			<div class="video-item" data-yt="z__-eMsn8-4"
+				 onclick="playVideo('z__-eMsn8-4', 'TTK Series Module 2 Lesson 5')">
+				<h3>Lesson 5 (15)</h3>
+			</div>
+
+			<div class="video-item" data-yt="0F5AMxB9cRg"
+				 onclick="playVideo('0F5AMxB9cRg', 'TTK Series Module 2 Lesson 6')">
+				<h3>Lesson 6 (16)</h3>
+			</div>
+
+			<div class="video-item" data-yt="oBUXBkTfNoE"
+				 onclick="playVideo('oBUXBkTfNoE', 'TTK Series Module 2 Lesson 7')">
+				<h3>Lesson 7 (17)</h3>
+			</div>
+
+			<div class="video-item" data-yt="EYk8ob0q9Ck"
+				 onclick="playVideo('EYk8ob0q9Ck', 'TTK Series Module 2 Ol Risos (resources)')">
+				<h3>Ol Risos (resources)</h3>
+			</div>
         </div>
 
         <div id="module3" class="video-list">
             <button class="back-btn" onclick="showMenu()">← Back to Menu</button>
             <h2 style="font-size: 24px; color: #1e293b; margin-bottom: 20px;">Module 3</h2>
-            <div class="video-item" onclick="playVideo('Z3D5Th-gfAY', 'TTK Module 3 Lesen 2')">
-                <h3>Lesen 2 (19)</h3>
-            </div>
-            <div class="video-item" onclick="playVideo('vp44XxkiFnI', 'TTK Module 3 Lesen 3')">
-                <h3>Lesen 3 (20)</h3>
-            </div>
-            <div class="video-item" onclick="playVideo('smbvabUHUoQ', 'TTK Module 3 Lesen 4')">
-                <h3>Lesen 4 (21)</h3>
-            </div>
-            <div class="video-item" onclick="playVideo('KKeEAXfwbIo', 'TTK Module 3 Lesen 5')">
-                <h3>Lesen 5 (22)</h3>
-            </div>
-            <div class="video-item" onclick="playVideo('dKq-N27NMOY', 'TTK Module 3 Lesen 6')">
-                <h3>Lesen 6 (23)</h3>
-            </div>
-            <div class="video-item" onclick="playVideo('8S2RsXTsUJ8', 'TTK Module 3 Lesson 7')">
-                <h3>Lesson 7 (24)</h3>
-            </div>
+			<div class="video-item" data-yt="Z3D5Th-gfAY"
+				 onclick="playVideo('Z3D5Th-gfAY', 'TTK Module 3 Lesen 2')">
+				<h3>Lesen 2 (19)</h3>
+			</div>
+
+			<div class="video-item" data-yt="vp44XxkiFnI"
+				 onclick="playVideo('vp44XxkiFnI', 'TTK Module 3 Lesen 3')">
+				<h3>Lesen 3 (20)</h3>
+			</div>
+
+			<div class="video-item" data-yt="smbvabUHUoQ"
+				 onclick="playVideo('smbvabUHUoQ', 'TTK Module 3 Lesen 4')">
+				<h3>Lesen 4 (21)</h3>
+			</div>
+
+			<div class="video-item" data-yt="KKeEAXfwbIo"
+				 onclick="playVideo('KKeEAXfwbIo', 'TTK Module 3 Lesen 5')">
+				<h3>Lesen 5 (22)</h3>
+			</div>
+
+			<div class="video-item" data-yt="dKq-N27NMOY"
+				 onclick="playVideo('dKq-N27NMOY', 'TTK Module 3 Lesen 6')">
+				<h3>Lesen 6 (23)</h3>
+			</div>
+
+			<div class="video-item" data-yt="8S2RsXTsUJ8"
+				 onclick="playVideo('8S2RsXTsUJ8', 'TTK Module 3 Lesson 7')">
+				<h3>Lesson 7 (24)</h3>
+			</div>
         </div>
 
         <div id="resources" class="video-list">
             <button class="back-btn" onclick="showMenu()">← Back to Menu</button>
             <h2 style="font-size: 24px; color: #1e293b; margin-bottom: 20px;">Ol Risos</h2>
-            <div class="video-item" onclick="playVideo('0Cuoqnhu3lc', 'TTK Bildim Wan Strong Fandesen')">
-                <h3>TTK Bildim Wan Strong Fandesen (video)</h3>
-            </div>
-            <div class="video-item" onclick="playVideo('8lGXluacQ10', 'Bigfala Storian blong Baebol')">
-                <h3>Bigfala Storian blong Baebol (video)</h3>
-            </div>
-            <div class="video-item" onclick="playVideo('X3bWMFwDTa0', 'Bigfala Storian blong Baebol in Song')">
-                <h3>Bigfala Storian blong Baebol in Song (video)</h3>
-            </div>
-            <div class="video-item" onclick="playVideo('08RpJjnxOfA', 'Bigfala Storian (song with actions)')">
-                <h3>Bigfala Storian (song with actions)</h3>
-            </div>
-            <div class="video-item" onclick="playVideo('uLCVU0LEWlM', 'Plan blong God long saed blong Kastom')">
-                <h3>Plan blong God long saed blong Kastom (video)</h3>
-            </div>
-            <div class="video-item" onclick="playVideo('uLCVU0LEWlM', 'Hu i Bos?')">
-                <h3>Hu i Bos (video)</h3>
-            </div>
+			<div class="video-item" data-yt="0Cuoqnhu3lc"
+				 onclick="playVideo('0Cuoqnhu3lc', 'TTK Bildim Wan Strong Fandesen')">
+				<h3>TTK Bildim Wan Strong Fandesen (video)</h3>
+			</div>
+
+			<div class="video-item" data-yt="8lGXluacQ10"
+				 onclick="playVideo('8lGXluacQ10', 'Bigfala Storian blong Baebol')">
+				<h3>Bigfala Storian blong Baebol (video)</h3>
+			</div>
+
+			<div class="video-item" data-yt="X3bWMFwDTa0"
+				 onclick="playVideo('X3bWMFwDTa0', 'Bigfala Storian blong Baebol in Song')">
+				<h3>Bigfala Storian blong Baebol in Song (video)</h3>
+			</div>
+
+			<div class="video-item" data-yt="08RpJjnxOfA"
+				 onclick="playVideo('08RpJjnxOfA', 'Bigfala Storian (song with actions)')">
+				<h3>Bigfala Storian (song with actions)</h3>
+			</div>
+
+			<div class="video-item" data-yt="uLCVU0LEWlM"
+				 onclick="playVideo('uLCVU0LEWlM', 'Plan blong God long saed blong Kastom')">
+				<h3>Plan blong God long saed blong Kastom (video)</h3>
+			</div>
+
+			<div class="video-item" data-yt="uLCVU0LEWlM"
+				 onclick="playVideo('uLCVU0LEWlM', 'Hu i Bos?')">
+				<h3>Hu i Bos (video)</h3>
+			</div>
             
             <!-- Document items -->
             <div class="video-item" onclick="openDocument('https://drive.google.com/file/d/1dQqvqvyRNlOszZHYO_5cSX1Bu_DqihJi/view?usp=sharing', 'Plan blong God long saed blong Kastom')">
@@ -590,6 +666,18 @@
                 alert('Install prompt not available. Make sure you:\n1. Are using HTTPS\n2. Have a valid manifest.json\n3. Have a service worker registered\n4. Haven\'t already installed the app');
             }
         }
+		
+		document.querySelectorAll('.video-item[data-yt]').forEach(item => {
+			const ytId = item.dataset.yt;
+
+			const thumb = document.createElement('div');
+			thumb.className = 'video-thumb';
+			thumb.style.backgroundImage =
+				`url('https://img.youtube.com/vi/${ytId}/sddefault.jpg')`;
+
+			// Insert thumbnail before the text
+			item.insertBefore(thumb, item.firstChild);
+		});		
 
         // Debug PWA readiness
         console.log('🔍 PWA Debug Info:');
@@ -625,13 +713,3 @@
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
