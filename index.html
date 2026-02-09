@@ -300,7 +300,7 @@
     <div class="container">
         <header>
             <h1>Trenem Tingting Kos</h1>
-            <p class="subtitle">Ol Video mo Risos blong helpem tija - v5.8</p>
+            <p class="subtitle">Ol Video mo Risos blong helpem tija</p>
         </header>
 
         <div id="installBanner">
@@ -724,6 +724,9 @@
 		function openResource(url, title, type = 'web', openMode = 'new-tab') {
 		    // Capture current visible list BEFORE hiding anything
 		    const currentVisible = document.querySelector('.video-list[style*="block"], .video-list.active');
+
+			alert('openMode = ' + openMode);
+			
 		    if (currentVisible && currentVisible.id) {
 		        lastListId = currentVisible.id;
 		    }
@@ -869,6 +872,7 @@
     </script>
 </body>
 </html>
+
 
 
 
