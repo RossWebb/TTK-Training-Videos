@@ -6,13 +6,17 @@ const urlsToCache = [
   './icon-512.png'
 ];
 
-self.addEventListener('install', event => {
-  event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => cache.addAll(urlsToCache))
+self.addEventListener('fetch', event => {
+  if (event.request.mode === 'navigate') {
+    // Always get latest HTML
+    event.respondWith(fetch(event.request));
+    return;
+  }
+
+  event.respondWith(
+    caches.match(event.request)
+      .then(response => response || fetch(event.request))
   );
-  // Force the waiting service worker to become active
-  self.skipWaiting();
 });
 
 self.addEventListener('activate', event => {
