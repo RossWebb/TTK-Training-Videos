@@ -747,30 +747,32 @@
 			frame.src = ''; // stop any previous loading
 
 			if (type === 'youtube') {
-			    // If someone calls it for YouTube (optional fallback)
+			    // YouTube videos → embed as before
 			    frame.src = `https://www.youtube.com/embed/${url}?rel=0&modestbranding=1&autoplay=1`;
 			} 
 			else if (type === 'pdf' || type === 'document') {
-				// For PDFs / Drive links → best to open in new tab
-				window.open(url, '_blank');
-				// Show helpful message in the player area
-				player.querySelector('.video-wrapper').innerHTML = `
-					<div style="padding: 40px; text-align: center; background: #f8fafc; border-radius: 12px;">
-						<h3>Opening document: ${title}</h3>
-						<p>It should open in a new tab.<br>
-						If nothing happens, <a href="${url}" target="_blank" style="color:#2563eb;">click here</a>.</p>
-					</div>
-				`;
+			    // PDFs → keep your existing new-tab + placeholder
+			    window.open(url, '_blank');
+			    player.querySelector('.video-wrapper').innerHTML = `
+			        <div style="padding: 40px; text-align: center; background: #f8fafc; border-radius: 12px;">
+			            <h3>Opening document: ${title}</h3>
+			            <p>It should open in a new tab.<br>
+			            If nothing happens, <a href="${url}" target="_blank" style="color:#2563eb;">click here</a>.</p>
+			        </div>
+			    `;
 			} 
 			else {
-			    // Default: external website / app (e.g. Baebol Kwestin)
-			    window.open(url, '_blank');
-			    // Show message in player area
+			    // External web apps (Bible Study App / Baebol Kwestin)
+			    // Use extra window features to force a full browser tab (not in-app overlay)
+			    window.open(url, '_blank', 'noopener,noreferrer,location=yes,menubar=yes,toolbar=yes');
+			
+			    // Show placeholder in TTK player area
 			    player.querySelector('.video-wrapper').innerHTML = `
 			        <div style="padding: 40px; text-align: center; background: #f8fafc; border-radius: 12px;">
 			            <h3>Opening: ${title}</h3>
-			            <p>It should open in a new tab (Bible question tool).<br>
-			            If it doesn't, <a href="${url}" target="_blank" style="color:#2563eb;">click here</a>.</p>
+			            <p>Baebol Kwestin should now open in a separate browser tab.<br>
+			            You can install it from there (look for the "Add to Home Screen" option).<br>
+			            <strong>Use your browser's back button</strong> to return here when finished.</p>
 			        </div>
 			    `;
 			}
@@ -854,5 +856,6 @@
     </script>
 </body>
 </html>
+
 
 
