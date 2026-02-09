@@ -208,6 +208,7 @@
             position: fixed;
             top: 0;
             left: 0;
+            left: 0;
             right: 0;
             background: #ef4444;
             color: white;
@@ -299,7 +300,7 @@
     <div class="container">
         <header>
             <h1>Trenem Tingting Kos</h1>
-            <p class="subtitle">Ol Video klip blong helpem tija</p>
+            <p class="subtitle">Ol Video mo Risos blong helpem tija</p>
         </header>
 
         <div id="installBanner">
@@ -500,26 +501,26 @@
 			</div>
             
             <!-- Document items -->
-            <div class="video-item" onclick="openDocument('https://drive.google.com/file/d/1dQqvqvyRNlOszZHYO_5cSX1Bu_DqihJi/view?usp=sharing', 'Plan blong God long saed blong Kastom')">
+            <div class="video-item" onclick="openResource('https://drive.google.com/file/d/1dQqvqvyRNlOszZHYO_5cSX1Bu_DqihJi/view?usp=sharing', 'Plan blong God long saed blong Kastom')">
                 <h3>Plan blong God long saed blong Kastom (PDF)</h3>
             </div>        
-            <div class="video-item" onclick="openDocument('https://drive.google.com/file/d/1zH3MFbZFey007wkrWCFZPcA1SfH9afNL/view?usp=drive_link', 'TTK Student Workbook')">
+            <div class="video-item" onclick="openResource('https://drive.google.com/file/d/1zH3MFbZFey007wkrWCFZPcA1SfH9afNL/view?usp=drive_link', 'TTK Student Workbook')">
                 <h3>TTK Studen Wokbuk</h3>
             </div>        
-            <div class="video-item" onclick="openDocument('https://drive.google.com/file/d/1IFEVi78LSgM8jTeyyr9sI7KX7CQ8ahCl/view?usp=drive_link', 'TTK Pictures for teaching')">
+            <div class="video-item" onclick="openResource('https://drive.google.com/file/d/1IFEVi78LSgM8jTeyyr9sI7KX7CQ8ahCl/view?usp=drive_link', 'TTK Pictures for teaching')">
                 <h3>TTK Pictures for teaching (PDF)</h3>
             </div>
 
-            <div class="video-item" onclick="openDocument('https://your-site.com/resources/family-tree-guide.pdf', 'Family Tree Guide')">
+            <div class="video-item" onclick="openResource('https://your-site.com/resources/family-tree-guide.pdf', 'Family Tree Guide')">
                 <h3>Family Tree Guide (PDF)</h3>
             </div>
 
-            <div class="video-item" onclick="openDocument('https://your-site.com/resources/family-tree-guide.pdf', 'Family Tree Guide')">
+            <div class="video-item" onclick="openResource('https://your-site.com/resources/family-tree-guide.pdf', 'Family Tree Guide')">
                 <h3>Family Tree Guide (PDF)</h3>
             </div>
 
             <!-- Link to another PWA -->
-            <div class="video-item" onclick="openResource('https://shr.pn/AskBible/', 'Bible Study App')">
+            <div class="video-item" onclick="openResource('https://shr.pn/AskBible', 'Bible Study App')">
                 <h3>Bible Study App 🌐</h3>
             </div>
         </div>
@@ -541,6 +542,7 @@
     <script>
         let currentModule = '';
         let deferredPrompt;
+		let lastListId = null;  // Will track 'resources', 'module1', etc.
         
         // Define iOS detection variables FIRST
         const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
@@ -555,17 +557,20 @@
             document.getElementById('videoPlayer').classList.remove('active');
         }
         
-        function showModule(moduleId) {
-            currentModule = moduleId;
-            document.getElementById('mainMenu').style.display = 'none';
-            document.querySelectorAll('.video-list').forEach(el => {
-                el.classList.remove('active');
-                el.style.display = 'none';
-            });
-            const module = document.getElementById(moduleId);
-            module.classList.add('active');
-            module.style.display = 'block';
-        }
+		function showModule(moduleId) {
+			currentModule = moduleId;
+			lastListId = moduleId;  // Remember this list for back navigation
+			document.getElementById('mainMenu').style.display = 'none';
+			document.querySelectorAll('.video-list').forEach(el => {
+				el.classList.remove('active');
+				el.style.display = 'none';
+			});
+			const moduleElem = document.getElementById(moduleId);
+			if (moduleElem) {
+				moduleElem.classList.add('active');
+				moduleElem.style.display = 'block';
+			}
+		}
 
         function playVideo(videoId, title) {
             document.getElementById('mainMenu').style.display = 'none';
@@ -594,19 +599,39 @@
                 fullscreenBtn.onclick = enterFullscreen;
             }
 
-        function backToList() {
-            document.getElementById('videoPlayer').classList.remove('active');
-            document.getElementById('youtubeFrame').src = '';
-            if (currentModule) {
-                const module = document.getElementById(currentModule);
-                module.classList.add('active');
-                module.style.display = 'block';
-            }
-        }
+			function backToList() {
+				// Hide player
+				document.getElementById('videoPlayer').classList.remove('active');
 
-        function closeBanner() {
-            document.getElementById('installBanner').style.display = 'none';
-        }
+				// Stop/clear any loading in iframe
+				const frame = document.getElementById('youtubeFrame');
+				if (frame) frame.src = '';
+
+				// Fully restore the original video wrapper HTML (important if we overwrote it with text)
+				document.getElementById('videoWrapper').innerHTML = `
+					<iframe id="youtubeFrame" 
+							referrerpolicy="strict-origin-when-cross-origin"
+							allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" 
+							frameborder="0" allowfullscreen>
+					</iframe>
+				`;
+
+				// Return to last known list (e.g. Resources)
+				if (lastListId && document.getElementById(lastListId)) {
+					const listElem = document.getElementById(lastListId);
+					listElem.classList.add('active');
+					listElem.style.display = 'block';
+					currentModule = lastListId;  // Keep in sync
+				} else if (currentModule && document.getElementById(currentModule)) {
+					// Fallback to currentModule if lastListId somehow missed
+					const moduleElem = document.getElementById(currentModule);
+					moduleElem.classList.add('active');
+					moduleElem.style.display = 'block';
+				} else {
+					// Ultimate fallback: main menu
+					showMenu();
+				}
+			}
 
         function closeAppleBanner() {
             document.getElementById('appleInstall').style.display = 'none';
@@ -677,7 +702,109 @@
 
 			// Insert thumbnail before the text
 			item.insertBefore(thumb, item.firstChild);
-		});		
+		});	
+
+		// ───────────────────────────────────────────────
+		// General resource opener for PDFs, websites, etc.
+		// ───────────────────────────────────────────────
+		function openResource(url, title, type = 'web') {
+			// Capture current visible list BEFORE hiding anything
+			const currentVisible = document.querySelector('.video-list[style*="block"], .video-list.active');
+			if (currentVisible && currentVisible.id) {
+				lastListId = currentVisible.id;
+			}
+
+			// Now hide menu & lists
+			document.getElementById('mainMenu').style.display = 'none';
+			document.querySelectorAll('.video-list').forEach(el => {
+				el.classList.remove('active');
+				el.style.display = 'none';
+			});
+
+			// Show the player area
+			const player = document.getElementById('videoPlayer');
+			player.classList.add('active');
+
+			// Update title
+			document.getElementById('videoTitle').textContent = title;
+
+			// Clear previous iframe content
+			const frame = document.getElementById('youtubeFrame');
+			frame.src = ''; // stop any previous loading
+
+			if (type === 'youtube') {
+				// If someone calls it for YouTube (optional fallback)
+				frame.src = `https://www.youtube.com/embed/${url}?rel=0&modestbranding=1&autoplay=1`;
+			} 
+			else if (type === 'pdf' || type === 'document') {
+				// For PDFs / Drive links → best to open in new tab
+				window.open(url, '_blank');
+				// Show helpful message in the player area
+				player.querySelector('.video-wrapper').innerHTML = `
+					<div style="padding: 40px; text-align: center; background: #f8fafc; border-radius: 12px;">
+						<h3>Opening document: ${title}</h3>
+						<p>It should open in a new tab.<br>
+						If nothing happens, <a href="${url}" target="_blank" style="color:#2563eb;">click here</a>.</p>
+					</div>
+				`;
+			} 
+			else {
+				// Default: external website / app (e.g. Baebol Kwestin)
+				window.open(url, '_blank');
+				// Show message in player area
+				player.querySelector('.video-wrapper').innerHTML = `
+					<div style="padding: 40px; text-align: center; background: #f8fafc; border-radius: 12px;">
+						<h3>Opening: ${title}</h3>
+						<p>It should open in a new tab (Bible question tool).<br>
+						If it doesn't, <a href="${url}" target="_blank" style="color:#2563eb;">click here</a>.</p>
+					</div>
+				`;
+			}
+
+			// ───────────────────────────────────────────────
+			// AUTO-RETURN to the previous list after short delay
+			// (only for non-video resources)
+			// ───────────────────────────────────────────────
+			if (type !== 'youtube') {
+				const delaySeconds = 5;  // ← adjust this number if you want faster/slower return
+				let remaining = delaySeconds;
+
+				// Create countdown message at bottom of player area
+				const messageDiv = document.createElement('div');
+				messageDiv.style.cssText = `
+					position: absolute;
+					bottom: 20px;
+					left: 50%;
+					transform: translateX(-50%);
+					background: rgba(0,0,0,0.7);
+					color: white;
+					padding: 10px 20px;
+					border-radius: 8px;
+					font-size: 14px;
+					z-index: 10;
+					white-space: nowrap;
+				`;
+				messageDiv.innerHTML = `
+					Returning to list in <span id="countdown">${delaySeconds}</span> seconds...
+					<a href="#" onclick="event.preventDefault(); clearTimeout(window.autoReturnTimer); this.parentElement.remove(); return false;"
+					   style="color: #4ade80; margin-left: 12px; text-decoration: underline;">Stay here</a>
+				`;
+				player.appendChild(messageDiv);
+
+				// Countdown logic
+				const countdownEl = messageDiv.querySelector('#countdown');
+				window.autoReturnTimer = setInterval(() => {
+					remaining--;
+					if (countdownEl) countdownEl.textContent = remaining;
+
+					if (remaining <= 0) {
+						clearInterval(window.autoReturnTimer);
+						messageDiv.remove();
+						backToList();  // Return to the previous list (Resources, etc.)
+					}
+				}, 1000);
+			}
+		}		
 
         // Debug PWA readiness
         console.log('🔍 PWA Debug Info:');
