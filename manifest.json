@@ -1,9 +1,8 @@
 {
-  "name": "Baebol Kwestin",
-  "short_name": "Baebol",
-  "id": "/AI-Bible-Questions-app/",
-  "start_url": "/AI-Bible-Questions-app/",
-  "scope": "/AI-Bible-Questions-app/",
+  "name": "Trenem Tingting Kos",
+  "short_name": "TTK Course",
+  "description": "Critical Thinking Course Videos",
+  "start_url": "./",
   "display": "standalone",
   "background_color": "#f0f7ff",
   "theme_color": "#1a5276",
