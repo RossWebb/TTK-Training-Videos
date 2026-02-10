@@ -537,6 +537,7 @@
 
             <!-- Link to another PWA -->
 			<a
+			  id="bibleAppLink"
 			  href="https://shr.pn/AskBible"
 			  target="_blank"
 			  rel="noopener"
@@ -544,7 +545,6 @@
 			>
 			  Bible Study App 🌐
 			</a>
-        </div>
 
         <div id="videoPlayer" class="video-player">
             <button class="back-btn" onclick="backToList()">← Back to Videos</button>
@@ -826,6 +826,25 @@
 		        }, 1000);
 		    }
 		}
+		
+		(function () {
+		    const link = document.getElementById('bibleAppLink');
+		    if (!link) return;
+		
+		    const ua = navigator.userAgent;
+		    const isAndroid = /Android/i.test(ua);
+		    const isChrome =
+		      /Chrome/i.test(ua) &&
+		      !/Edg/i.test(ua) &&
+		      !/OPR/i.test(ua) &&
+		      !/SamsungBrowser/i.test(ua);
+		
+		    if (isAndroid && isChrome) {
+		      link.href =
+		        'intent://shr.pn/AskBible#Intent;scheme=https;package=com.android.chrome;end';
+		    }
+		  })();
+		
         // Debug PWA readiness
         console.log('🔍 PWA Debug Info:');
         console.log('HTTPS:', window.location.protocol === 'https:');
@@ -860,6 +879,7 @@
     </script>
 </body>
 </html>
+
 
 
 
