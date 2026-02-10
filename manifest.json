@@ -1,26 +1,22 @@
 {
-  "name": "Trenem Tingting Kos",
-  "short_name": "TTK Course",
-  "description": "Critical Thinking Course Videos",
-  "start_url": "./",
+  "name": "Baebol Kwestin",
+  "short_name": "Baebol",
+  "id": "/AI-Bible-Questions-app/",
+  "start_url": "/AI-Bible-Questions-app/",
+  "scope": "/AI-Bible-Questions-app/",
   "display": "standalone",
-  "background_color": "#667eea",
-  "theme_color": "#2563eb",
+  "background_color": "#f0f7ff",
+  "theme_color": "#1a5276",
+  "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "./icon-192.png",
+      "src": "BibleQ192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any"
+      "purpose": "maskable"
     },
     {
-      "src": "./icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "./icon-512.png",
+      "src": "BibleQ512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
