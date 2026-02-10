@@ -538,7 +538,8 @@
             <!-- Link to another PWA -->
 			<a
 			  id="bibleAppLink"
-			  href="https://shr.pn/AskBible"
+			  // href="https://shr.pn/AskBible"
+			  href='intent://shr.pn/AskBible#Intent;scheme=https;package=com.android.chrome;end'
 			  target="_blank"
 			  rel="noopener"
 			  class="video-item"
@@ -777,9 +778,8 @@
 			    player.querySelector('.video-wrapper').innerHTML = `
 			        <div style="padding: 40px; text-align: center; background: #f8fafc; border-radius: 12px;">
 			            <h3>Opening: ${title}</h3>
-			            <p>Baebol Kwestin should now open in a separate browser tab.<br>
-			            You can install it from there (look for the "Add to Home Screen" option).<br>
-			            <strong>Use your browser's back button</strong> to return here when finished.</p>
+			            <p>Baebol Kwestin should now open.<br>
+			            You can install it from there (look for the "Add to Home Screen" option).</p>
 			        </div>
 			    `;
 			}
@@ -879,6 +879,7 @@
     </script>
 </body>
 </html>
+
 
 
 
