@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ttk-6.0';  // bump to 'ttk-6.1' if you want to force update
+const CACHE_NAME = 'ttk-6.1'
 
 const urlsToCache = [
   './',
