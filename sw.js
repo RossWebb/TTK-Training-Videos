@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ttk-v5.7';
+const CACHE_NAME = 'ttk-6.0';
 const urlsToCache = [
   './',
   './index.html',
