@@ -864,62 +864,42 @@
 
 		    // Replace entire player content with full-screen instructions
 		    player.innerHTML = `
-		        <button class="back-btn" onclick="backToList()">← Back to Videos</button>
+		        <button class="back-btn" onclick="backToList()">← Back to Resources</button>
 		        
-		        <div style="padding: 60px 30px; text-align: center; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); min-height: 500px; display: flex; flex-direction: column; justify-content: center;">
-		            <h2 style="font-size: 32px; margin-bottom: 30px;">📱 Opening Askem Baebol App</h2>
+		        <div style="padding: 20px 15px; text-align: center; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); max-height: 85vh; overflow-y: auto;">
+		            <h2 style="font-size: 26px; margin-bottom: 20px;">📱 Askem Baebol App</h2>
 		            
-		            <div style="background: rgba(255,255,255,0.2); padding: 30px; border-radius: 10px; margin: 30px auto; max-width: 600px;">
-		                <h3 style="margin-bottom: 20px; font-size: 22px;">📲 To Install the App:</h3>
-		                <ol style="text-align: left; display: inline-block; line-height: 2.5; font-size: 18px;">
-		                    <li>The app will open in a <strong>new browser tab</strong></li>
-		                    <li>Look for the <strong>⊕ install icon</strong> in the address bar</li>
-		                    <li>Click it and select <strong>"Install"</strong> or <strong>"Add to Home Screen"</strong></li>
+		            <div style="background: rgba(255,255,255,0.2); padding: 25px 20px; border-radius: 10px; margin: 20px auto; max-width: 500px;">
+		                <h3 style="margin-bottom: 15px; font-size: 20px;">📲 How to Install:</h3>
+		                <ol style="text-align: left; display: inline-block; line-height: 2; font-size: 16px; margin: 0; padding-left: 25px;">
+		                    <li>Click <strong>OK</strong> below</li>
+		                    <li>App opens in <strong>new tab</strong></li>
+		                    <li>Look for <strong>⊕</strong> icon in address bar</li>
+		                    <li>Click it → select <strong>"Install"</strong></li>
 		                </ol>
 		                
-		                <p style="font-size: 16px; opacity: 0.95; margin-top: 25px; padding: 15px; background: rgba(255,255,255,0.1); border-radius: 8px;">
-		                    💡 <strong>Can't find it?</strong><br>
-		                    Check your browser menu (⋮) → "Install app"
-		                </p>
+		                <div style="font-size: 15px; margin-top: 20px; padding: 12px; background: rgba(255,255,255,0.15); border-radius: 8px; line-height: 1.6;">
+		                    💡 <strong>Can't find install button?</strong><br>
+		                    Try: Browser menu (⋮) → "Install app"
+		                </div>
 		            </div>
 
-		            <div style="margin-top: 30px;">
-		                <button onclick="window.open('https://shr.pn/AskBible', '_blank', 'noopener,noreferrer'); return false;"
-		                   style="background: white; color: #667eea; padding: 18px 40px; border: none; border-radius: 10px; font-weight: bold; font-size: 18px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); cursor: pointer;">
-		                    🚀 Open Askem Baebol App Now
+		            <div style="margin-top: 25px;">
+		                <button onclick="
+		                    window.open('https://shr.pn/AskBible', '_blank', 'noopener,noreferrer');
+		                    setTimeout(() => backToList(), 2000);
+		                "
+		                   style="background: white; color: #667eea; padding: 16px 50px; border: none; border-radius: 10px; font-weight: bold; font-size: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); cursor: pointer; margin: 10px;">
+		                    ✅ OK - Open App
 		                </button>
 		            </div>
 
-		            <p style="font-size: 15px; margin-top: 30px; opacity: 0.9;">
-		                ⬅️ The app will open in a new tab.<br>Use your browser's back button to return here when done.
+		            <p style="font-size: 14px; margin-top: 20px; opacity: 0.9; line-height: 1.5;">
+		                App opens in new tab<br>
+		                Use browser back button to return
 		            </p>
-		            
-		            <div id="autoReturnMessage" style="margin-top: 40px; font-size: 14px; opacity: 0.8;">
-		                Returning to Resources in <span id="countdown">10</span> seconds...
-		                <button onclick="clearInterval(window.autoReturnTimer); document.getElementById('autoReturnMessage').remove();" 
-		                        style="background: rgba(255,255,255,0.2); color: white; border: 1px solid white; padding: 8px 16px; border-radius: 6px; margin-left: 15px; cursor: pointer; font-size: 14px;">
-		                    Stay Here
-		                </button>
-		            </div>
 		        </div>
 		    `;
-
-		    // Auto-open in new tab after 2 seconds (gives time to read)
-		    setTimeout(() => {
-		        window.open('https://shr.pn/AskBible', '_blank', 'noopener,noreferrer');
-		    }, 2000);
-
-		    // Auto-return to list after 10 seconds
-		    let remaining = 10;
-		    const countdownEl = document.getElementById('countdown');
-		    window.autoReturnTimer = setInterval(() => {
-		        remaining--;
-		        if (countdownEl) countdownEl.textContent = remaining;
-		        if (remaining <= 0) {
-		            clearInterval(window.autoReturnTimer);
-		            backToList();
-		        }
-		    }, 1000);
 		}
 
         // Debug PWA readiness
