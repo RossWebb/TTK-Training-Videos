@@ -1,21 +1,17 @@
-const CACHE_NAME = 'ttk-6.0';
+const CACHE_NAME = 'ttk-6.0';  // bump to 'ttk-6.1' if you want to force update
+
 const urlsToCache = [
   './',
   './index.html',
   './icon-192.png',
   './icon-512.png'
+  // add more if needed, e.g. CSS/JS if you have external files
 ];
 
-self.addEventListener('fetch', event => {
-  if (event.request.mode === 'navigate') {
-    // Always get latest HTML
-    event.respondWith(fetch(event.request));
-    return;
-  }
-
-  event.respondWith(
-    caches.match(event.request)
-      .then(response => response || fetch(event.request))
+self.addEventListener('install', event => {
+  event.waitUntil(
+    caches.open(CACHE_NAME)
+      .then(cache => cache.addAll(urlsToCache))
   );
 });
 
@@ -24,20 +20,24 @@ self.addEventListener('activate', event => {
     caches.keys().then(cacheNames => {
       return Promise.all(
         cacheNames.map(cacheName => {
-          // Delete old caches
           if (cacheName !== CACHE_NAME) {
-            console.log('Deleting old cache:', cacheName);
             return caches.delete(cacheName);
           }
         })
       );
     })
   );
-  // Take control of all pages immediately
   return self.clients.claim();
 });
 
 self.addEventListener('fetch', event => {
+  if (event.request.mode === 'navigate') {
+    // Always get latest HTML for navigation
+    event.respondWith(fetch(event.request));
+    return;
+  }
+
+  // Cache-first for everything else
   event.respondWith(
     caches.match(event.request)
       .then(response => response || fetch(event.request))
