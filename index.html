@@ -300,7 +300,7 @@
     <div class="container">
         <header>
             <h1>Trenem Tingting Kos</h1>
-            <p class="subtitle">Ol Video mo Risos blong helpem tija</p>
+            <p class="subtitle">Ol Video mo Risos blong helpem tija - v5.7</p>
         </header>
 
         <div id="installBanner">
@@ -529,8 +529,8 @@
                 <h3>Histri blong Baebol (PDF)</h3>
             </div>
 
-			<div class="video-item" onclick="openResource('https://drive.google.com/open?id=1-9VKLF6loD1FC5D1Hcznq7BfLlyMwkM3&usp=drive_fs', 'Histri blong Baebol - Teaching notes')">
-                <h3>Histri blong Baebol - Teaching notes (PDF)</h3>
+			<div class="video-item" onclick="openResource('https://drive.google.com/open?id=1-9VKLF6loD1FC5D1Hcznq7BfLlyMwkM3&usp=drive_fs', 'Teaching notes - Histri blong Baebol')">
+                <h3>Teaching notes - Histri blong Baebol (PDF)</h3>
             </div>
 
             <!-- Link to another PWA -->
@@ -871,3 +871,972 @@
 </html>
 
 
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#2563eb">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <link rel="manifest" href="./manifest.json">
+    <title>Trenem Tingting Kos - Critical Thinking Course</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        header {
+            background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .menu {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            padding: 20px;
+            background: #f8fafc;
+        }
+
+        .menu-item {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid #e2e8f0;
+            text-align: center;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.2);
+            border-color: #2563eb;
+        }
+
+        .menu-item h2 {
+            color: #1e293b;
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+
+        .menu-item .count {
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        .video-list {
+            display: none;
+            padding: 20px;
+            background: #f8fafc;
+        }
+
+        .video-list.active {
+            display: block;
+        }
+
+        .back-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #e2e8f0;
+            color: #1e293b;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            font-size: 16px;
+            transition: background 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: #cbd5e1;
+        }
+
+        .video-item {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+		
+		.video-item {
+			display: flex;
+			gap: 15px;
+			align-items: center;
+		}
+
+		.video-thumb {
+			flex-shrink: 0;
+			width: 120px;
+			height: 68px; /* 16:9 */
+			border-radius: 6px;
+			background-size: cover;
+			background-position: center;
+			box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+		}
+
+		.video-item h3 {
+			margin: 0;
+}		
+
+        .video-item:hover {
+            border-color: #2563eb;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.1);
+        }
+
+        .video-item h3 {
+            color: #1e293b;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .video-player {
+            display: none;
+            padding: 20px;
+        }
+
+        .video-player.active {
+            display: block;
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 12px;
+            margin-top: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-title {
+            font-size: 22px;
+            color: #1e293b;
+            margin: 20px 0 10px 0;
+        }
+
+        .fullscreen-btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 15px;
+            font-size: 16px;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+
+        .fullscreen-btn:hover {
+            background: #1e40af;
+        }
+
+        #installBanner {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            left: 0;
+            right: 0;
+            background: #ef4444;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            z-index: 1000;
+            font-weight: 600;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        #installBtn {
+            background: white !important;    /* Force white background */
+            color: #dc2626 !important;       /* Red text */
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        
+        #installBtn:hover {
+            background: #f3f4f6 !important;  /* Light gray on hover */
+            color: #991b1b !important;       /* Darker red text on hover */
+        }
+
+        .close-banner-btn {
+            background: transparent;
+            color: white;
+            border: 1px solid white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        #appleInstall {
+            display: none;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.9);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            max-width: 300px;
+            z-index: 1001;
+            font-size: 14px;
+            line-height: 1.5;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+        }
+
+        .apple-close-btn {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            margin-top: 10px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .menu {
+                grid-template-columns: 1fr;
+            }
+
+            #appleInstall {
+                right: 10px;
+                left: 10px;
+                max-width: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Trenem Tingting Kos</h1>
+            <p class="subtitle">Ol Video mo Risos blong helpem tija - v5.7</p>
+        </header>
+
+        <div id="installBanner">
+            <button id="installBtn" onclick="installApp()">📱 Install App</button>
+            <button class="close-banner-btn" onclick="closeBanner()">✕</button>
+        </div>
+        
+        <div id="appleInstall">
+            <strong>📱 Install on iPhone/iPad</strong><br><br>
+            1️⃣ Tap <strong>Share</strong> button<br>
+            2️⃣ Scroll to <strong>Add to Home Screen</strong><br>
+            3️⃣ Tap <strong>Add</strong><br>
+            <button class="apple-close-btn" onclick="closeAppleBanner()">Got it!</button>
+        </div>
+
+        <div id="mainMenu" class="menu">
+            <div class="menu-item" onclick="showModule('module1')">
+                <h2>📘 Module 1</h2>
+                <p class="count">Lessons 1-9</p>
+            </div>
+            <div class="menu-item" onclick="showModule('module2')">
+                <h2>📗 Module 2</h2>
+                <p class="count">Lessons 11-17</p>
+            </div>
+            <div class="menu-item" onclick="showModule('module3')">
+                <h2>📙 Module 3</h2>
+                <p class="count">Lessons 18-24</p>
+            </div>
+            <div class="menu-item" onclick="showModule('resources')">
+                <h2>📚 Resources</h2>
+                <p class="count">4 videos</p>
+            </div>
+        </div>
+
+        <div id="module1" class="video-list">
+            <button class="back-btn" onclick="showMenu()">← Back to Menu</button>
+            <h2 style="font-size: 24px; color: #1e293b; margin-bottom: 20px;">Module 1</h2>
+			<div class="video-item" data-yt="Gm0mcrgAhuU"
+				 onclick="playVideo('Gm0mcrgAhuU', 'TTK Series Module 1 Intro + Lesen 1')">
+				<h3>Intro + Lesen 1 (1)</h3>
+			</div>
+
+			<div class="video-item" data-yt="Vzr0LEaIJUs"
+				 onclick="playVideo('Vzr0LEaIJUs', 'TTK Series Module 1 Lesson 2')">
+				<h3>Lesson 2 (2)</h3>
+			</div>
+
+			<div class="video-item" data-yt="EQCWdVa_Y5Q"
+				 onclick="playVideo('EQCWdVa_Y5Q', 'TTK Module 1 Lesen 3')">
+				<h3>Lesen 3 (3)</h3>
+			</div>
+
+			<div class="video-item" data-yt="wu-JBpdG0H8"
+				 onclick="playVideo('wu-JBpdG0H8', 'TTK Module 1 Lesen 4')">
+				<h3>Lesen 4 (4)</h3>
+			</div>
+
+			<div class="video-item" data-yt="Wxa53hfmc0E"
+				 onclick="playVideo('Wxa53hfmc0E', 'TTK Module 1 Lesen 5')">
+				<h3>Lesen 5 (5)</h3>
+			</div>
+
+			<div class="video-item" data-yt="eoLk25XWJpc"
+				 onclick="playVideo('eoLk25XWJpc', 'TTK Module 1 Lesen 6')">
+				<h3>Lesen 6 (6)</h3>
+			</div>
+
+			<div class="video-item" data-yt="6v_DgLeZsbI"
+				 onclick="playVideo('6v_DgLeZsbI', 'TTK Module 1 Lesen 7')">
+				<h3>Lesen 7 (7)</h3>
+			</div>
+
+			<div class="video-item" data-yt="ahR6nbAWsmQ"
+				 onclick="playVideo('ahR6nbAWsmQ', 'TTK Module 1 Lesen 8')">
+				<h3>Lesen 8 (8)</h3>
+			</div>
+
+			<div class="video-item" data-yt="dUp0hRhSQeI"
+				 onclick="playVideo('dUp0hRhSQeI', 'TTK Module 1 Lesen 8b')">
+				<h3>Lesen 8b (9)</h3>
+			</div>
+        </div>
+
+        <div id="module2" class="video-list">
+            <button class="back-btn" onclick="showMenu()">← Back to Menu</button>
+            <h2 style="font-size: 24px; color: #1e293b; margin-bottom: 20px;">Module 2</h2>
+			<div class="video-item" data-yt="Z2YrBjiHL3E"
+				 onclick="playVideo('Z2YrBjiHL3E', 'TTK Series Module 2 Intro')">
+				<h3>Intro</h3>
+			</div>
+
+			<div class="video-item" data-yt="DPdDQ3inRoc"
+				 onclick="playVideo('DPdDQ3inRoc', 'TTK Series Module 2 Lesson 1')">
+				<h3>Lesson 1 (11)</h3>
+			</div>
+
+			<div class="video-item" data-yt="FNgaLGpYPHA"
+				 onclick="playVideo('FNgaLGpYPHA', 'TTK Series Module 2 Lesson 2')">
+				<h3>Lesson 2 (12)</h3>
+			</div>
+
+			<div class="video-item" data-yt="Hq8kBo3trfw"
+				 onclick="playVideo('Hq8kBo3trfw', 'TTK Series Module 2 Lesson 3')">
+				<h3>Lesson 3 (13)</h3>
+			</div>
+
+			<div class="video-item" data-yt="f8JhrNZ-S6o"
+				 onclick="playVideo('f8JhrNZ-S6o', 'TTK Series Module 2 Lesson 4')">
+				<h3>Lesson 4 (14)</h3>
+			</div>
+
+			<div class="video-item" data-yt="z__-eMsn8-4"
+				 onclick="playVideo('z__-eMsn8-4', 'TTK Series Module 2 Lesson 5')">
+				<h3>Lesson 5 (15)</h3>
+			</div>
+
+			<div class="video-item" data-yt="0F5AMxB9cRg"
+				 onclick="playVideo('0F5AMxB9cRg', 'TTK Series Module 2 Lesson 6')">
+				<h3>Lesson 6 (16)</h3>
+			</div>
+
+			<div class="video-item" data-yt="oBUXBkTfNoE"
+				 onclick="playVideo('oBUXBkTfNoE', 'TTK Series Module 2 Lesson 7')">
+				<h3>Lesson 7 (17)</h3>
+			</div>
+
+			<div class="video-item" data-yt="EYk8ob0q9Ck"
+				 onclick="playVideo('EYk8ob0q9Ck', 'TTK Series Module 2 Ol Risos (resources)')">
+				<h3>Ol Risos (resources)</h3>
+			</div>
+        </div>
+
+        <div id="module3" class="video-list">
+            <button class="back-btn" onclick="showMenu()">← Back to Menu</button>
+            <h2 style="font-size: 24px; color: #1e293b; margin-bottom: 20px;">Module 3</h2>
+			<div class="video-item" data-yt="Z3D5Th-gfAY"
+				 onclick="playVideo('Z3D5Th-gfAY', 'TTK Module 3 Lesen 2')">
+				<h3>Lesen 2 (19)</h3>
+			</div>
+
+			<div class="video-item" data-yt="vp44XxkiFnI"
+				 onclick="playVideo('vp44XxkiFnI', 'TTK Module 3 Lesen 3')">
+				<h3>Lesen 3 (20)</h3>
+			</div>
+
+			<div class="video-item" data-yt="smbvabUHUoQ"
+				 onclick="playVideo('smbvabUHUoQ', 'TTK Module 3 Lesen 4')">
+				<h3>Lesen 4 (21)</h3>
+			</div>
+
+			<div class="video-item" data-yt="KKeEAXfwbIo"
+				 onclick="playVideo('KKeEAXfwbIo', 'TTK Module 3 Lesen 5')">
+				<h3>Lesen 5 (22)</h3>
+			</div>
+
+			<div class="video-item" data-yt="dKq-N27NMOY"
+				 onclick="playVideo('dKq-N27NMOY', 'TTK Module 3 Lesen 6')">
+				<h3>Lesen 6 (23)</h3>
+			</div>
+
+			<div class="video-item" data-yt="8S2RsXTsUJ8"
+				 onclick="playVideo('8S2RsXTsUJ8', 'TTK Module 3 Lesson 7')">
+				<h3>Lesson 7 (24)</h3>
+			</div>
+        </div>
+
+        <div id="resources" class="video-list">
+            <button class="back-btn" onclick="showMenu()">← Back to Menu</button>
+            <h2 style="font-size: 24px; color: #1e293b; margin-bottom: 20px;">Ol Risos</h2>
+			<div class="video-item" data-yt="0Cuoqnhu3lc"
+				 onclick="playVideo('0Cuoqnhu3lc', 'TTK Bildim Wan Strong Fandesen')">
+				<h3>TTK Bildim Wan Strong Fandesen (video)</h3>
+			</div>
+
+			<div class="video-item" data-yt="8lGXluacQ10"
+				 onclick="playVideo('8lGXluacQ10', 'Bigfala Storian blong Baebol')">
+				<h3>Bigfala Storian blong Baebol (video)</h3>
+			</div>
+
+            <div class="video-item" onclick="openResource('https://drive.google.com/open?id=1VZ1-YgpYRMMHpGLUwT0mGdzubDFfDYNS&usp=drive_fs', '25 Pictures for Bigfala Storian')">
+                <h3>25 Pictures for Bigfala Storian (PDF)</h3>
+            </div>			
+
+			<div class="video-item" data-yt="X3bWMFwDTa0"
+				 onclick="playVideo('X3bWMFwDTa0', 'Bigfala Storian blong Baebol in Song')">
+				<h3>Bigfala Storian blong Baebol in Song (video)</h3>
+			</div>
+
+			<div class="video-item" data-yt="08RpJjnxOfA"
+				 onclick="playVideo('08RpJjnxOfA', 'Bigfala Storian (song with actions)')">
+				<h3>Bigfala Storian (song with actions)</h3>
+			</div>
+
+			<div class="video-item" data-yt="uLCVU0LEWlM"
+				 onclick="playVideo('uLCVU0LEWlM', 'Plan blong God long saed blong Kastom')">
+				<h3>Plan blong God long saed blong Kastom (video)</h3>
+			</div>
+
+			<div class="video-item" onclick="openResource('https://drive.google.com/file/d/1dQqvqvyRNlOszZHYO_5cSX1Bu_DqihJi/view?usp=sharing', 'Plan blong God long saed blong Kastom')">
+                <h3>Plan blong God long saed blong Kastom (PDF)</h3>
+            </div>
+			
+            <div class="video-item" onclick="openResource('https://drive.google.com/open?id=1q_h78pmLyfMJpr65r17y46d6GO9zMxoD&usp=drive_fs', 'Sam Toktok abaot ol Devel')">
+                <h3>Sam Toktok abaot ol Devel (PDF)</h3>
+            </div> 	
+
+			<div class="video-item" data-yt="6-pMjJYgciw"
+				 onclick="playVideo('6-pMjJYgciw', 'Hu i Bos?')">
+				<h3>Hu i Bos (video)</h3>
+			</div>
+            
+            <!-- Document items -->
+		
+            <div class="video-item" onclick="openResource('https://drive.google.com/file/d/1zH3MFbZFey007wkrWCFZPcA1SfH9afNL/view?usp=drive_link', 'TTK Student Workbook')">
+                <h3>TTK Studen Wokbuk</h3>
+            </div>        
+            <div class="video-item" onclick="openResource('https://drive.google.com/file/d/1IFEVi78LSgM8jTeyyr9sI7KX7CQ8ahCl/view?usp=drive_link', 'TTK Pictures for teaching')">
+                <h3>TTK Pictures for teaching (PDF)</h3>
+            </div>
+
+			<div class="video-item" onclick="openResource('https://drive.google.com/open?id=1iVXYCZ2fNwW1N-zPsB0MiLOrVan_TndV&usp=drive_fs', 'Ol TTK Risos blong Tija')">
+                <h3>Ol TTK Risos blong Tija (PDF)</h3>
+            </div>
+
+            <div class="video-item" onclick="openResource('https://drive.google.com/open?id=1HeRcfafeLclF-CMYT1OYp9fFLnO-k9d0&usp=drive_fs', 'Histri blong Baebol')">
+                <h3>Histri blong Baebol (PDF)</h3>
+            </div>
+
+			<div class="video-item" onclick="openResource('https://drive.google.com/open?id=1-9VKLF6loD1FC5D1Hcznq7BfLlyMwkM3&usp=drive_fs', 'Teaching notes - Histri blong Baebol')">
+                <h3>Teaching notes - Histri blong Baebol (PDF)</h3>
+            </div>
+
+            <!-- Link to another PWA -->
+			<div class="video-item" onclick="openAskemBaebol()">
+			    <h3>Traem: "Askem Baebol" App 🌐</h3>
+			</div>
+        </div>
+
+        <div id="videoPlayer" class="video-player">
+            <button class="back-btn" onclick="backToList()">← Back to Videos</button>
+            <h2 class="video-title" id="videoTitle"></h2>
+            <div class="video-wrapper" id="videoWrapper">
+                <iframe id="youtubeFrame" 
+                        referrerpolicy="strict-origin-when-cross-origin"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" 
+                        frameborder="0" allowfullscreen>
+                </iframe>
+            </div>
+            <button class="fullscreen-btn" onclick="enterFullscreen()">🖥️ Watch Fullscreen (Landscape)</button>
+        </div>
+    </div>
+
+    <script>
+        let currentModule = '';
+        let deferredPrompt;
+		let lastListId = null;  // Will track 'resources', 'module1', etc.
+        
+        // Define iOS detection variables FIRST
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        const isInStandaloneMode = ('standalone' in window.navigator) && (window.navigator.standalone);
+
+        function showMenu() {
+            document.getElementById('mainMenu').style.display = 'grid';
+            document.querySelectorAll('.video-list').forEach(el => {
+                el.classList.remove('active');
+                el.style.display = 'none';
+            });
+            document.getElementById('videoPlayer').classList.remove('active');
+        }
+        
+		function showModule(moduleId) {
+			currentModule = moduleId;
+			lastListId = moduleId;  // Remember this list for back navigation
+			document.getElementById('mainMenu').style.display = 'none';
+			document.querySelectorAll('.video-list').forEach(el => {
+				el.classList.remove('active');
+				el.style.display = 'none';
+			});
+			const moduleElem = document.getElementById(moduleId);
+			if (moduleElem) {
+				moduleElem.classList.add('active');
+				moduleElem.style.display = 'block';
+			}
+		}
+
+        function playVideo(videoId, title) {
+            document.getElementById('mainMenu').style.display = 'none';
+            document.querySelectorAll('.video-list').forEach(el => {
+                el.classList.remove('active');
+                el.style.display = 'none';
+            });
+            document.getElementById('videoPlayer').classList.add('active');
+            
+            document.getElementById('videoTitle').textContent = title;
+            const frame = document.getElementById('youtubeFrame');
+            frame.src = `https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1&autoplay=1`;
+        }
+
+            const fullscreenBtn = document.querySelector('.fullscreen-btn');
+            if (isIOS) {
+                fullscreenBtn.textContent = '📱 Tap the fullscreen icon in bottom-right of video';
+                fullscreenBtn.style.background = '#64748b';
+                fullscreenBtn.style.cursor = 'default';
+                fullscreenBtn.onclick = null;
+            } else {
+                // Reset for non-iOS (in case user switches devices)
+                fullscreenBtn.textContent = '🖥️ Watch Fullscreen (Landscape)';
+                fullscreenBtn.style.background = '#2563eb';
+                fullscreenBtn.style.cursor = 'pointer';
+                fullscreenBtn.onclick = enterFullscreen;
+            }
+
+			function backToList() {
+				// Hide player
+				document.getElementById('videoPlayer').classList.remove('active');
+
+				// Stop/clear any loading in iframe
+				const frame = document.getElementById('youtubeFrame');
+				if (frame) frame.src = '';
+
+				// Fully restore the original video wrapper HTML (important if we overwrote it with text)
+				document.getElementById('videoWrapper').innerHTML = `
+					<iframe id="youtubeFrame" 
+							referrerpolicy="strict-origin-when-cross-origin"
+							allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" 
+							frameborder="0" allowfullscreen>
+					</iframe>
+				`;
+
+				// Return to last known list (e.g. Resources)
+				if (lastListId && document.getElementById(lastListId)) {
+					const listElem = document.getElementById(lastListId);
+					listElem.classList.add('active');
+					listElem.style.display = 'block';
+					currentModule = lastListId;  // Keep in sync
+				} else if (currentModule && document.getElementById(currentModule)) {
+					// Fallback to currentModule if lastListId somehow missed
+					const moduleElem = document.getElementById(currentModule);
+					moduleElem.classList.add('active');
+					moduleElem.style.display = 'block';
+				} else {
+					// Ultimate fallback: main menu
+					showMenu();
+				}
+			}
+
+        function closeAppleBanner() {
+            document.getElementById('appleInstall').style.display = 'none';
+        }
+
+        function enterFullscreen() {
+            const wrapper = document.getElementById('videoWrapper');
+            
+            // Request fullscreen
+            if (wrapper.requestFullscreen) {
+                wrapper.requestFullscreen();
+            } else if (wrapper.webkitRequestFullscreen) { // Safari
+                wrapper.webkitRequestFullscreen();
+            } else if (wrapper.mozRequestFullScreen) { // Firefox
+                wrapper.mozRequestFullScreen();
+            } else if (wrapper.msRequestFullscreen) { // IE/Edge
+                wrapper.msRequestFullscreen();
+            }
+            
+            // Try to lock to landscape orientation
+            if (screen.orientation && screen.orientation.lock) {
+                screen.orientation.lock('landscape').catch(err => {
+                    console.log('Orientation lock not supported:', err);
+                });
+            }
+        }
+
+        // PWA Install Detection with debugging
+        window.addEventListener('beforeinstallprompt', (e) => {
+            console.log('✅ beforeinstallprompt event fired!');
+            e.preventDefault();
+            deferredPrompt = e;
+            document.getElementById('installBanner').style.display = 'flex';
+        });
+
+        window.addEventListener('appinstalled', () => {
+            console.log('✅ App installed successfully!');
+            deferredPrompt = null;
+            document.getElementById('installBanner').style.display = 'none';
+        });
+        
+        function installApp() {
+            console.log('Install button clicked');
+            if (deferredPrompt) {
+                console.log('Showing install prompt...');
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    console.log('User choice:', choiceResult.outcome);
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('User accepted the install prompt');
+                    }
+                    deferredPrompt = null;
+                    document.getElementById('installBanner').style.display = 'none';
+                });
+            } else {
+                console.log('❌ No deferred prompt available');
+                alert('Install prompt not available. Make sure you:\n1. Are using HTTPS\n2. Have a valid manifest.json\n3. Have a service worker registered\n4. Haven\'t already installed the app');
+            }
+        }
+		
+		document.querySelectorAll('.video-item[data-yt]').forEach(item => {
+			const ytId = item.dataset.yt;
+
+			const thumb = document.createElement('div');
+			thumb.className = 'video-thumb';
+			thumb.style.backgroundImage =
+				`url('https://img.youtube.com/vi/${ytId}/sddefault.jpg')`;
+
+			// Insert thumbnail before the text
+			item.insertBefore(thumb, item.firstChild);
+		});	
+
+		// ───────────────────────────────────────────────
+		// General resource opener for PDFs, websites, etc.
+		// ───────────────────────────────────────────────
+		function openResource(url, title, type = 'web', openMode = 'new-tab') {
+		    // Capture current visible list BEFORE hiding anything
+		    const currentVisible = document.querySelector('.video-list[style*="block"], .video-list.active');
+		    if (currentVisible && currentVisible.id) {
+		        lastListId = currentVisible.id;
+		    }
+		
+		    // Now hide menu & lists
+		    document.getElementById('mainMenu').style.display = 'none';
+		    document.querySelectorAll('.video-list').forEach(el => {
+		        el.classList.remove('active');
+		        el.style.display = 'none';
+		    });
+		
+		    // Show the player area
+		    const player = document.getElementById('videoPlayer');
+		    player.classList.add('active');
+		
+		    // Update title
+		    document.getElementById('videoTitle').textContent = title;
+		
+		    // Clear previous iframe content
+		    const frame = document.getElementById('youtubeFrame');
+		    frame.src = ''; // stop any previous loading
+		
+		    if (type === 'youtube') {
+		        // YouTube videos → embed as before
+		        frame.src = `https://www.youtube.com/embed/${url}?rel=0&modestbranding=1&autoplay=1`;
+		    } 
+		    else if (type === 'pdf' || type === 'document') {
+		        // PDFs → open in new tab + placeholder
+		        window.open(url, '_blank');
+		        player.querySelector('.video-wrapper').innerHTML = `
+		            <div style="padding: 40px; text-align: center; background: #f8fafc; border-radius: 12px;">
+		                <h3>Opening document: ${title}</h3>
+		                <p>It should open in a new tab.<br>
+		                If nothing happens, <a href="${url}" target="_blank" style="color:#2563eb;">click here</a>.</p>
+		            </div>
+		        `;
+		    } 
+		    else {
+		        // External web apps (e.g., Bible Study App / Baebol Kwestin)
+		        if (openMode === 'same-tab') {
+		            // Same-tab: replace current page for clean install experience
+		            player.querySelector('.video-wrapper').innerHTML = `
+		                <div style="padding: 60px 20px; text-align: center; background: #f8fafc; border-radius: 12px;">
+		                    <h3>Opening ${title}...</h3>
+		                    <p>Switching to Bible question tool.<br>
+		                    <strong>Install it from the browser menu</strong> for future use (look for "Add to Home Screen").<br>
+		                    Use your browser's back button to return here when finished.</p>
+		                </div>
+		            `;
+		
+		            // Small delay so user sees the message
+		            setTimeout(() => {
+		                window.location.href = url;
+		            }, 1500);  // 1.5 seconds – adjust if needed (or remove delay entirely)
+		        } else {
+		            // Default: try to force new browser tab
+		            window.open(url, '_blank', 'noopener,noreferrer,location=yes,menubar=yes,toolbar=yes');
+		
+		            // Placeholder message
+		            player.querySelector('.video-wrapper').innerHTML = `
+		                <div style="padding: 40px; text-align: center; background: #f8fafc; border-radius: 12px;">
+		                    <h3>Opening: ${title}</h3>
+		                    <p>It should now open in a separate browser tab.<br>
+		                    You can install it from there (look for "Add to Home Screen" in the menu or address bar).<br>
+		                    <strong>Use your browser's back button</strong> to return here when finished.</p>
+		                </div>
+		            `;
+		        }
+		    }
+		
+		    // ───────────────────────────────────────────────
+		    // AUTO-RETURN (if you still have it – optional)
+		    // Only for non-video resources
+		    // ───────────────────────────────────────────────
+		    if (type !== 'youtube') {
+		        const delaySeconds = 5;
+		        let remaining = delaySeconds;
+		
+		        const messageDiv = document.createElement('div');
+		        messageDiv.style.cssText = `
+		            position: absolute;
+		            bottom: 20px;
+		            left: 50%;
+		            transform: translateX(-50%);
+		            background: rgba(0,0,0,0.7);
+		            color: white;
+		            padding: 10px 20px;
+		            border-radius: 8px;
+		            font-size: 14px;
+		            z-index: 10;
+		            white-space: nowrap;
+		        `;
+		        messageDiv.innerHTML = `
+		            Returning to list in <span id="countdown">${delaySeconds}</span> seconds...
+		            <a href="#" onclick="event.preventDefault(); clearTimeout(window.autoReturnTimer); this.parentElement.remove(); return false;"
+		               style="color: #4ade80; margin-left: 12px; text-decoration: underline;">Stay here</a>
+		        `;
+		        player.appendChild(messageDiv);
+		
+		        const countdownEl = messageDiv.querySelector('#countdown');
+		        window.autoReturnTimer = setInterval(() => {
+		            remaining--;
+		            if (countdownEl) countdownEl.textContent = remaining;
+		            if (remaining <= 0) {
+		                clearInterval(window.autoReturnTimer);
+		                messageDiv.remove();
+		                backToList();
+		            }
+		        }, 1000);
+		    }
+		}
+
+		// ───────────────────────────────────────────────
+		// NEW FUNCTION: Special handler for Askem Baebol App
+		// ───────────────────────────────────────────────
+		function openAskemBaebol() {
+		    // Capture current state
+		    const currentVisible = document.querySelector('.video-list[style*="block"], .video-list.active');
+		    if (currentVisible && currentVisible.id) {
+		        lastListId = currentVisible.id;
+		    }
+
+		    // Hide everything
+		    document.getElementById('mainMenu').style.display = 'none';
+		    document.querySelectorAll('.video-list').forEach(el => {
+		        el.classList.remove('active');
+		        el.style.display = 'none';
+		    });
+
+		    // Show player area with instructions
+		    const player = document.getElementById('videoPlayer');
+		    player.classList.add('active');
+		    document.getElementById('videoTitle').textContent = 'Opening Askem Baebol App';
+
+		    player.querySelector('.video-wrapper').innerHTML = `
+		        <div style="padding: 40px 20px; text-align: center; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+		            <h2 style="font-size: 24px; margin-bottom: 20px;">📱 Opening Bible Question App</h2>
+		            
+		            <div style="background: rgba(255,255,255,0.2); padding: 20px; border-radius: 10px; margin: 20px 0;">
+		                <h3 style="margin-bottom: 15px; font-size: 18px;">To Install the App:</h3>
+		                <ol style="text-align: left; display: inline-block; line-height: 2;">
+		                    <li>Wait for the app to open</li>
+		                    <li>Look for the <strong>⊕ icon</strong> in your browser's address bar</li>
+		                    <li>Click it and select "Install"</li>
+		                </ol>
+		            </div>
+
+		            <p style="font-size: 14px; opacity: 0.9; margin-top: 15px;">
+		                Or check your browser menu (⋮) for "Install app" or "Add to Home Screen"
+		            </p>
+
+		            <div style="margin-top: 25px;">
+		                <a href="https://shr.pn/AskBible" target="_blank" 
+		                   style="display: inline-block; background: white; color: #667eea; padding: 15px 30px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+		                    🚀 Open Askem Baebol App
+		                </a>
+		            </div>
+
+		            <p style="font-size: 13px; margin-top: 20px; opacity: 0.8;">
+		                The app will open in a new tab. Use your browser's back button to return here.
+		            </p>
+		        </div>
+		    `;
+
+		    // Auto-open in new tab after short delay
+		    setTimeout(() => {
+		        window.open('https://shr.pn/AskBible', '_blank', 'noopener,noreferrer');
+		    }, 1500);
+
+		    // Auto-return to list after 8 seconds
+		    let remaining = 8;
+		    const messageDiv = document.createElement('div');
+		    messageDiv.style.cssText = `
+		        position: absolute;
+		        bottom: 20px;
+		        left: 50%;
+		        transform: translateX(-50%);
+		        background: rgba(0,0,0,0.7);
+		        color: white;
+		        padding: 10px 20px;
+		        border-radius: 8px;
+		        font-size: 14px;
+		        z-index: 10;
+		        white-space: nowrap;
+		    `;
+		    messageDiv.innerHTML = `
+		        Returning to list in <span id="countdown">${remaining}</span> seconds...
+		        <a href="#" onclick="event.preventDefault(); clearTimeout(window.autoReturnTimer); this.parentElement.remove(); return false;"
+		           style="color: #4ade80; margin-left: 12px; text-decoration: underline;">Stay here</a>
+		    `;
+		    player.appendChild(messageDiv);
+
+		    const countdownEl = messageDiv.querySelector('#countdown');
+		    window.autoReturnTimer = setInterval(() => {
+		        remaining--;
+		        if (countdownEl) countdownEl.textContent = remaining;
+		        if (remaining <= 0) {
+		            clearInterval(window.autoReturnTimer);
+		            messageDiv.remove();
+		            backToList();
+		        }
+		    }, 1000);
+		}
+
+        // Debug PWA readiness
+        console.log('🔍 PWA Debug Info:');
+        console.log('HTTPS:', window.location.protocol === 'https:');
+        console.log('Service Worker supported:', 'serviceWorker' in navigator);
+        console.log('iOS Device:', isIOS);
+        console.log('Standalone mode:', isInStandaloneMode);
+
+        // Apple PWA Detection (iOS/Safari)
+        if (isIOS && !isInStandaloneMode) {
+            setTimeout(() => {
+                document.getElementById('appleInstall').style.display = 'block';
+            }, 3000);
+        }
+
+        // Debug PWA readiness
+        console.log('🔍 PWA Debug Info:');
+        console.log('HTTPS:', window.location.protocol === 'https:');
+        console.log('Service Worker supported:', 'serviceWorker' in navigator);
+        console.log('iOS Device:', isIOS);
+        console.log('Standalone mode:', isInStandaloneMode);
+
+        // PWA Service Worker Registration
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js').then(registration => {
+                    console.log('Service Worker registered successfully:', registration.scope);
+                }).catch(error => {
+                    console.log('Service Worker registration failed:', error);
+                });
+            });
+        }
+    </script>
+</body>
+</html>
