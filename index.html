@@ -660,6 +660,12 @@
             } else if (wrapper.msRequestFullscreen) { // IE/Edge
                 wrapper.msRequestFullscreen();
             }
+			// Try to lock to landscape orientation
+            if (screen.orientation && screen.orientation.lock) {
+                screen.orientation.lock('landscape').catch(err => {
+                    console.log('Orientation lock not supported:', err);
+                });
+			}
         }
 
         // PWA Install Detection with debugging
@@ -829,3 +835,4 @@
     </script>
 </body>
 </html>
+
