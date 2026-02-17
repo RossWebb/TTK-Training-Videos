@@ -50,7 +50,7 @@
 
         .menu {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: 1fr;
             gap: 15px;
             padding: 20px;
             background: #f8fafc;
@@ -271,25 +271,6 @@
             width: 100%;
         }
 
-        @media (max-width: 768px) {
-            body {
-                padding: 10px;
-            }
-
-            h1 {
-                font-size: 24px;
-            }
-
-            .menu {
-                grid-template-columns: 1fr;
-            }
-
-            #appleInstall {
-                right: 10px;
-                left: 10px;
-                max-width: none;
-            }
-        }
     </style>
 </head>
 <body>
@@ -835,4 +816,5 @@
     </script>
 </body>
 </html>
+
 
