@@ -270,6 +270,13 @@
             cursor: pointer;
             width: 100%;
         }
+		
+		#youtubeFrame {
+			width: 100%;
+			height: 100%;
+			object-fit: contain; /* Ensures the entire video is visible with black bars if needed */
+			background: black;   /* Prevents white flickering during transitions */
+		}
 
     </style>
 </head>
@@ -468,7 +475,7 @@
 				<h3>Bigfala Storian blong Baebol (video)</h3>
 			</div>
 
-            <div class="video-item" onclick="openResource('https://drive.google.com/open?id=1VZ1-YgpYRMMHpGLUwT0mGdzubDFfDYNS&usp=drive_fs', '25 Pictures for Bigfala Storian')">
+            <div class="video-item" onclick="handleResourceClick('https://drive.google.com/open?id=1VZ1-YgpYRMMHpGLUwT0mGdzubDFfDYNS&usp=drive_fs', '25 Pictures for Bigfala Storian')">
                 <h3>25 Pictures for Bigfala Storian (PDF)</h3>
             </div>			
 
@@ -487,11 +494,11 @@
 				<h3>Plan blong God long saed blong Kastom (video)</h3>
 			</div>
 
-			<div class="video-item" onclick="openResource('https://drive.google.com/file/d/1dQqvqvyRNlOszZHYO_5cSX1Bu_DqihJi/view?usp=sharing', 'Plan blong God long saed blong Kastom')">
+			<div class="video-item" onclick="handleResourceClick('https://drive.google.com/file/d/1dQqvqvyRNlOszZHYO_5cSX1Bu_DqihJi/view?usp=sharing', 'Plan blong God long saed blong Kastom')">
                 <h3>Plan blong God long saed blong Kastom (PDF)</h3>
             </div>
 			
-            <div class="video-item" onclick="openResource('https://drive.google.com/open?id=1q_h78pmLyfMJpr65r17y46d6GO9zMxoD&usp=drive_fs', 'Sam Toktok abaot ol Devel')">
+            <div class="video-item" onclick="handleResourceClick('https://drive.google.com/open?id=1q_h78pmLyfMJpr65r17y46d6GO9zMxoD&usp=drive_fs', 'Sam Toktok abaot ol Devel')">
                 <h3>Sam Toktok abaot ol Devel (PDF)</h3>
             </div> 	
 
@@ -500,24 +507,23 @@
 				<h3>Hu i Bos (video)</h3>
 			</div>
             
-            <!-- Document items -->
 		
-            <div class="video-item" onclick="openResource('https://drive.google.com/file/d/1zH3MFbZFey007wkrWCFZPcA1SfH9afNL/view?usp=drive_link', 'TTK Student Workbook')">
-                <h3>TTK Studen Wokbuk</h3>
+            <div class="video-item" onclick="handleResourceClick('https://drive.google.com/file/d/1zH3MFbZFey007wkrWCFZPcA1SfH9afNL/view?usp=drive_link', 'TTK Student Workbook')">
+                <h3>TTK Studen Wokbuk (PDF)</h3>
             </div>        
-            <div class="video-item" onclick="openResource('https://drive.google.com/file/d/1IFEVi78LSgM8jTeyyr9sI7KX7CQ8ahCl/view?usp=drive_link', 'TTK Pictures for teaching')">
+            <div class="video-item" onclick="handleResourceClick('https://drive.google.com/file/d/1IFEVi78LSgM8jTeyyr9sI7KX7CQ8ahCl/view?usp=drive_link', 'TTK Pictures for teaching')">
                 <h3>TTK Pictures for teaching (PDF)</h3>
             </div>
 
-			<div class="video-item" onclick="openResource('https://drive.google.com/open?id=1iVXYCZ2fNwW1N-zPsB0MiLOrVan_TndV&usp=drive_fs', 'Ol TTK Risos blong Tija')">
+			<div class="video-item" onclick="handleResourceClick('https://drive.google.com/open?id=1iVXYCZ2fNwW1N-zPsB0MiLOrVan_TndV&usp=drive_fs', 'Ol TTK Risos blong Tija')">
                 <h3>Ol TTK Risos blong Tija (PDF)</h3>
             </div>
 
-            <div class="video-item" onclick="openResource('https://drive.google.com/open?id=1HeRcfafeLclF-CMYT1OYp9fFLnO-k9d0&usp=drive_fs', 'Histri blong Baebol')">
+            <div class="video-item" onclick="handleResourceClick('https://drive.google.com/open?id=1HeRcfafeLclF-CMYT1OYp9fFLnO-k9d0&usp=drive_fs', 'Histri blong Baebol')">
                 <h3>Histri blong Baebol (PDF)</h3>
             </div>
 
-			<div class="video-item" onclick="openResource('https://drive.google.com/open?id=1-9VKLF6loD1FC5D1Hcznq7BfLlyMwkM3&usp=drive_fs', 'Teaching notes - Histri blong Baebol')">
+			<div class="video-item" onclick="handleResourceClick('https://drive.google.com/open?id=1-9VKLF6loD1FC5D1Hcznq7BfLlyMwkM3&usp=drive_fs', 'Teaching notes - Histri blong Baebol')">
                 <h3>Teaching notes - Histri blong Baebol (PDF)</h3>
             </div>
 
@@ -585,9 +591,8 @@
             document.getElementById('videoTitle').textContent = title;
             const frame = document.getElementById('youtubeFrame');
             frame.src = `https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1&autoplay=1`;
-        }
-
-            const fullscreenBtn = document.querySelector('.fullscreen-btn');
+			
+			const fullscreenBtn = document.querySelector('.fullscreen-btn');
             if (isIOS) {
                 fullscreenBtn.textContent = '📱 Tap the fullscreen icon in bottom-right of video';
                 fullscreenBtn.style.background = '#64748b';
@@ -600,6 +605,7 @@
                 fullscreenBtn.style.cursor = 'pointer';
                 fullscreenBtn.onclick = enterFullscreen;
             }
+        }
 
 			function backToList() {
 				// Hide player
@@ -639,26 +645,39 @@
             document.getElementById('appleInstall').style.display = 'none';
         }
 
-        function enterFullscreen() {
-            const wrapper = document.getElementById('videoWrapper');
-            
-            // Request fullscreen
-            if (wrapper.requestFullscreen) {
-                wrapper.requestFullscreen();
-            } else if (wrapper.webkitRequestFullscreen) { // Safari
-                wrapper.webkitRequestFullscreen();
-            } else if (wrapper.mozRequestFullScreen) { // Firefox
-                wrapper.mozRequestFullScreen();
-            } else if (wrapper.msRequestFullscreen) { // IE/Edge
-                wrapper.msRequestFullscreen();
-            }
-			// Try to lock to landscape orientation
-            if (screen.orientation && screen.orientation.lock) {
-                screen.orientation.lock('landscape').catch(err => {
-                    console.log('Orientation lock not supported:', err);
-                });
+		function enterFullscreen() {
+			const frame = document.getElementById('youtubeFrame');
+			
+			// Request fullscreen on the iframe specifically, not the wrapper
+			if (frame.requestFullscreen) {
+				frame.requestFullscreen();
+			} else if (frame.webkitRequestFullscreen) { // Safari/iOS
+				frame.webkitRequestFullscreen();
+			} else if (frame.msRequestFullscreen) { // IE/Edge
+				frame.msRequestFullscreen();
 			}
-        }
+
+			// Lock orientation to landscape for the best fit on mobile
+			if (screen.orientation && screen.orientation.lock) {
+				screen.orientation.lock('landscape').catch(err => {
+					console.log('Orientation lock skipped:', err);
+				});
+			}
+		}
+		
+		function handleResourceClick(url, fileName) {
+			const userConfirmed = confirm(`Tajem OK blong daonlotem  "${fileName}" blo yu save printim.`);
+			
+			if (userConfirmed) {
+				// Open in a new tab
+				const newWindow = window.open(url, '_blank');
+				
+				// Safety check for popup blockers
+				if (!newWindow || newWindow.closed || typeof newWindow.closed == 'undefined') {
+					alert('Please allow popups to download this resource.');
+				}
+			}
+		}		
 
         // PWA Install Detection with debugging
         window.addEventListener('beforeinstallprompt', (e) => {
@@ -827,7 +846,6 @@
     </script>
 </body>
 </html>
-
 
 
 
