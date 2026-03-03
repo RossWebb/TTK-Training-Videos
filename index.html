@@ -303,19 +303,19 @@
         <div id="mainMenu" class="menu">
             <div class="menu-item" onclick="showModule('module1')">
                 <h2>📘 Module 1</h2>
-                <p class="count">Lessons 1-9</p>
+                <p class="count">Lesen 1-9</p>
             </div>
             <div class="menu-item" onclick="showModule('module2')">
                 <h2>📗 Module 2</h2>
-                <p class="count">Lessons 11-17</p>
+                <p class="count">Lesen 11-17</p>
             </div>
             <div class="menu-item" onclick="showModule('module3')">
                 <h2>📙 Module 3</h2>
-                <p class="count">Lessons 18-24</p>
+                <p class="count">Lesen 18-24</p>
             </div>
             <div class="menu-item" onclick="showModule('resources')">
-                <h2>📚 Resources</h2>
-                <p class="count">4 videos</p>
+                <h2>📚 Ol Risos</h2>
+                <p class="count">Ol video mo buk</p>
             </div>
         </div>
 
@@ -546,6 +546,18 @@
             <button class="fullscreen-btn" onclick="enterFullscreen()">🖥️ Watch Fullscreen (Landscape)</button>
         </div>
     </div>
+	
+	<div id="customModal" style="display:none; position:fixed; z-index:2000; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.6); align-items:center; justify-content:center; backdrop-filter: blur(2px);">
+		<div style="background:white; padding:25px; border-radius:16px; width:85%; max-width:380px; text-align:center; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);">
+			<div style="font-size: 40px; margin-bottom: 10px;">📄</div>
+			<h3 style="margin-bottom:12px; color:#1e293b; font-size: 20px;">Open Resource?</h3>
+			<p id="modalMessage" style="margin-bottom:25px; color:#64748b; line-height:1.5; font-size: 15px;"></p>
+			<div style="display:flex; gap:12px;">
+				<button onclick="closeModal()" style="flex:1; padding:12px; border:none; border-radius:10px; background:#f1f5f9; color:#475569; font-weight:600; cursor:pointer;">Cancel</button>
+				<button id="confirmBtn" style="flex:1; padding:12px; border:none; border-radius:10px; background:#2563eb; color:white; font-weight:600; cursor:pointer;">Open</button>
+			</div>
+		</div>
+	</div>
 
     <script>
         // let currentModule = '';
@@ -666,18 +678,51 @@
 		}
 		
 		function handleResourceClick(url, fileName) {
-			const userConfirmed = confirm(`Tajem OK blong daonlotem  "${fileName}" blo yu save printim.`);
-			
-			if (userConfirmed) {
-				// Open in a new tab
-				const newWindow = window.open(url, '_blank');
+			const modal = document.getElementById('customModal');
+			const msg = document.getElementById('modalMessage');
+			const confirmBtn = document.getElementById('confirmBtn');
+
+			if (modal && msg && confirmBtn) {
+				// Update the message text
+				msg.textContent = `Would you like to open "${fileName}" to save or print it?`;
 				
-				// Safety check for popup blockers
-				if (!newWindow || newWindow.closed || typeof newWindow.closed == 'undefined') {
-					alert('Please allow popups to download this resource.');
-				}
+				// Show the modal
+				modal.style.display = 'flex';
+
+				// Set the action for the "Open" button
+				confirmBtn.onclick = function() {
+					window.open(url, '_blank');
+					closeModal();
+				};
 			}
-		}		
+		}
+
+		function closeModal() {
+			const modal = document.getElementById('customModal');
+			if (modal) {
+				modal.style.display = 'none';
+			}
+		}
+
+		// Helper to keep the 'Opening...' screen logic if you liked it
+		function showOpeningState(url, title) {
+			document.getElementById('mainMenu').style.display = 'none';
+			document.querySelectorAll('.video-list').forEach(el => {
+				el.classList.remove('active');
+				el.style.display = 'none';
+			});
+			
+			const player = document.getElementById('videoPlayer');
+			player.classList.add('active');
+			document.getElementById('videoTitle').textContent = title;
+			
+			document.getElementById('videoWrapper').innerHTML = `
+				<div style="padding:40px;text-align:center;background:#f8fafc;border-radius:12px;">
+					<h3>Opening document: ${title}</h3>
+					<p>If nothing happens, <a href="${url}" target="_blank" style="color:#2563eb;">click here</a>.</p>
+				</div>
+			`;
+		}	
 
         // PWA Install Detection with debugging
         window.addEventListener('beforeinstallprompt', (e) => {
@@ -846,6 +891,3 @@
     </script>
 </body>
 </html>
-
-
-
