@@ -682,19 +682,23 @@
 			const msg = document.getElementById('modalMessage');
 			const confirmBtn = document.getElementById('confirmBtn');
 
-			if (modal && msg && confirmBtn) {
-				// Update the message text
-				msg.textContent = `Tajem OK blong daonlodem "${fileName}" blo yu save printim.`;
-				
-				// Show the modal
-				modal.style.display = 'flex';
+			// Detect if it's a mobile device (iOS or Android)
+			const isMobile = isIOS || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
-				// Set the action for the "Open" button
-				confirmBtn.onclick = function() {
-					window.open(url, '_blank');
-					closeModal();
-				};
+			if (isMobile) {
+				// Mobile Message
+				msg.innerHTML = `Sipos yu wantem<strong>lukluk fael ia</strong>, tajem OPEN.<br><br>Sipos yu wantem <strong>printim fael ia</strong> i gud moa sipos yu ranem app ia long wan laptop o PC.`;
+			} else {
+				// Desktop Message
+				msg.innerHTML = `Yu wantem openem fael ia "<strong>${fileName}</strong>" blong yu save daonlodem mo printim?`;
 			}
+			
+			modal.style.display = 'flex';
+
+			confirmBtn.onclick = function() {
+				window.open(url, '_blank');
+				closeModal();
+			};
 		}
 
 		function closeModal() {
@@ -891,7 +895,3 @@
     </script>
 </body>
 </html>
-
-
-
-
