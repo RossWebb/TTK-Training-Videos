@@ -1,24 +1,20 @@
-{
-  "name": "Trenem Tingting Kos",
-  "short_name": "TTK",
-  "description": "Critical Thinking Course videos for Vanuatu",
-  "start_url": "/TTK-Training-Videos/",
-  "scope": "/TTK-Training-Videos/",
-  "display": "standalone",
-  "background_color": "#2563eb",
-  "theme_color": "#2563eb",
- "icons": [
+"icons": [
   {
     "src": "icon-192.png",
     "sizes": "192x192",
     "type": "image/png",
-    "purpose": "maskable"
+    "purpose": "any"
   },
   {
     "src": "icon-512.png",
     "sizes": "512x512",
     "type": "image/png",
+    "purpose": "any"
+  },
+  {
+    "src": "icon-maskable-512.png",
+    "sizes": "512x512",
+    "type": "image/png",
     "purpose": "maskable"
   }
 ]
-}
