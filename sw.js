@@ -1,4 +1,4 @@
-const CACHE_VERSION = 2.5; // Just increment this number when you update
+const CACHE_VERSION = 2.6; // Just increment this number when you update
 const CACHE_NAME = `ttk-v${CACHE_VERSION}`;
 
 const urlsToCache = [
