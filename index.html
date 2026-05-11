@@ -799,14 +799,16 @@
 				toast.style.display = 'none';
 			}, 3000);
 
-			// 3. Trigger the download via a temporary link
-			const link = document.createElement('a');
-			link.href = url;
-			link.setAttribute('download', fileName || 'download');
-			link.target = '_blank';
-			document.body.appendChild(link);
-			link.click();
-			document.body.removeChild(link);
+			// 3. Trigger the download after a short delay so the toast paints first
+			setTimeout(() => {
+			    const link = document.createElement('a');
+			    link.href = url;
+			    link.setAttribute('download', fileName || 'download');
+			    link.target = '_blank';
+			    document.body.appendChild(link);
+			    link.click();
+			    document.body.removeChild(link);
+			}, 300);
 		}
 
 		function closeModal() {
