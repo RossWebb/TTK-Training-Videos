@@ -784,32 +784,26 @@
 			}
 		}
 		
-		function handleResourceClick(url, fileName) {
-			// 1. Show the toast notification (reset animation so it replays each time)
-			const toast = document.getElementById('downloadToast');
-			toast.style.display = 'none';
-			toast.style.animation = 'none';
-			// Force reflow so the animation restart is picked up
-			void toast.offsetWidth;
-			toast.style.animation = '';
-			toast.style.display = 'block';
+function handleResourceClick(url, fileName) {
+    // Show toast
+    const toast = document.getElementById('downloadToast');
+    toast.style.display = 'none';
+    toast.style.animation = 'none';
+    void toast.offsetWidth;
+    toast.style.animation = '';
+    toast.style.display = 'block';
+    setTimeout(() => { toast.style.display = 'none'; }, 5000);
 
-			// 2. Hide it automatically after 3 seconds
-			setTimeout(() => {
-				toast.style.display = 'none';
-			}, 5000);
-
-			// 3. Trigger the download after a short delay so the toast paints first
-			setTimeout(() => {
-			    const link = document.createElement('a');
-			    link.href = url;
-			    link.setAttribute('download', fileName || 'download');
-			    link.target = '_blank';
-			    document.body.appendChild(link);
-			    link.click();
-			    document.body.removeChild(link);
-			}, 300);
-		}
+    // Trigger download via hidden iframe — no navigation, no black screen
+    let dlFrame = document.getElementById('silentDownloadFrame');
+    if (!dlFrame) {
+        dlFrame = document.createElement('iframe');
+        dlFrame.id = 'silentDownloadFrame';
+        dlFrame.style.display = 'none';
+        document.body.appendChild(dlFrame);
+    }
+    dlFrame.src = url;
+}
 
 		function closeModal() {
 			const modal = document.getElementById('customModal');
