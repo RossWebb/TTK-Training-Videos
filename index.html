@@ -360,12 +360,92 @@
 		animation: fadeInOut 3s forwards;
 	}
 
-@keyframes fadeInOut {
-    0% { opacity: 0; bottom: 10px; }
-    15% { opacity: 1; bottom: 30px; }
-    85% { opacity: 1; bottom: 30px; }
-    100% { opacity: 0; bottom: 10px; }
-}
+    @keyframes fadeInOut {
+        0% { opacity: 0; bottom: 10px; }
+        15% { opacity: 1; bottom: 30px; }
+        85% { opacity: 1; bottom: 30px; }
+        100% { opacity: 0; bottom: 10px; }
+    }
+
+    /* ── Resource cards: fully standalone, no relation to .video-item ── */
+    .resource-card {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        cursor: pointer;
+        overflow: hidden;
+        transition: all 0.2s ease;
+    }
+
+    .resource-card:hover {
+        border-color: #2563eb;
+        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.1);
+    }
+
+    .resource-card .resource-thumb {
+        width: 100%;
+        height: 0;
+        padding-bottom: 56.25%;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-color: #e2e8f0;
+        flex-shrink: 0;
+    }
+
+    .resource-card .resource-thumb.pdf {
+        height: 80px;
+        padding-bottom: 0;
+        background-color: #f1f5f9;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 40px;
+        border-bottom: 1px solid #e2e8f0;
+        color: #64748b;
+    }
+
+    .resource-card .resource-body {
+        padding: 8px 10px 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .resource-card .resource-body h3 {
+        font-size: 12px;
+        font-weight: 600;
+        line-height: 1.4;
+        color: #1e293b;
+        margin: 0;
+    }
+
+    .resource-card .download-btn {
+        align-self: flex-start;
+        margin-top: 2px;
+    }
+
+    /* Grid for resource cards inside open details panels */
+    .resource-card-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        padding: 12px;
+        border: 2px solid #e2e8f0;
+        border-top: none;
+        border-radius: 0 0 12px 12px;
+        background: white;
+    }
+
+    @media (max-width: 480px) {
+        .resource-card-grid {
+            grid-template-columns: 1fr;
+        }
+    }
 </style>
 </head>
 <body>
@@ -601,33 +681,75 @@
 
             <details name="resources">
                 <summary><span>📘</span> Kritikal Tingting risos</summary>
-                <div style="padding: 15px; border: 2px solid #e2e8f0; border-top: none; border-radius: 0 0 12px 12px; background: white;">
-                    <div class="video-item" data-yt="0Cuoqnhu3lc" onclick="playVideo('0Cuoqnhu3lc', 'TTK Bildim Wan Strong Fandesen')"><h3>TTK Bildim Wan Strong Fandesen (video)</h3></div>
-                    <div class="video-item" onclick="handleResourceClick('https://drive.usercontent.google.com/download?id=1zH3MFbZFey007wkrWCFZPcA1SfH9afNL&export=download&authuser=0', 'TTK Student Workbook')"><h3>TTK Studen Wokbuk (PDF)</h3></div>
-                    <div class="video-item" onclick="handleResourceClick('https://drive.usercontent.google.com/download?id=1IFEVi78LSgM8jTeyyr9sI7KX7CQ8ahCl&export=download&authuser=0', 'TTK Pictures for teaching')"><h3>TTK Pictures for teaching (PDF)</h3></div>
-                    <div class="video-item" onclick="handleResourceClick('https://drive.usercontent.google.com/download?id=1S6rhTnvVIZYgJIP2UqNrmRaQyoNwl0wK&export=download&authuser=0', 'TTK Pictures for Pig Hunting')"><h3>Pictures for Pig Hunting (PDF)</h3></div>
-                    <div class="video-item" onclick="handleResourceClick('https://drive.usercontent.google.com/download?id=1iVXYCZ2fNwW1N-zPsB0MiLOrVan_TndV&export=download&authuser=0', 'Ol TTK Risos blong Tija')"><h3>Ol TTK Risos blong Tija (PDF)</h3></div>
+                <div class="resource-card-grid">
+                    <div class="resource-card" data-yt="0Cuoqnhu3lc" onclick="playVideo('0Cuoqnhu3lc', 'TTK Bildim Wan Strong Fandesen')">
+                        <div class="resource-thumb" style="background-image:url('https://img.youtube.com/vi/0Cuoqnhu3lc/hqdefault.jpg')"></div>
+                        <div class="resource-body"><h3>TTK Bildim Wan Strong Fandesen</h3><button class="download-btn" onclick="event.stopPropagation(); handleResourceClick('https://drive.google.com/uc?export=download&id=1Qy8hz0dEKbVqSL-8MRliCaTY_qMBjQVH', 'TTK Bildim Wan Strong Fandesen.mp4');">📥 Download</button></div>
+                    </div>
+                    <div class="resource-card" onclick="handleResourceClick('https://drive.usercontent.google.com/download?id=1zH3MFbZFey007wkrWCFZPcA1SfH9afNL&export=download&authuser=0', 'TTK Student Workbook')">
+                        <div class="resource-thumb pdf">📄</div>
+                        <div class="resource-body"><h3>TTK Studen Wokbuk</h3></div>
+                    </div>
+                    <div class="resource-card" onclick="handleResourceClick('https://drive.usercontent.google.com/download?id=1IFEVi78LSgM8jTeyyr9sI7KX7CQ8ahCl&export=download&authuser=0', 'TTK Pictures for teaching')">
+                        <div class="resource-thumb pdf">📄</div>
+                        <div class="resource-body"><h3>TTK Pictures for teaching</h3></div>
+                    </div>
+                    <div class="resource-card" onclick="handleResourceClick('https://drive.usercontent.google.com/download?id=1S6rhTnvVIZYgJIP2UqNrmRaQyoNwl0wK&export=download&authuser=0', 'TTK Pictures for Pig Hunting')">
+                        <div class="resource-thumb pdf">📄</div>
+                        <div class="resource-body"><h3>Pictures for Pig Hunting</h3></div>
+                    </div>
+                    <div class="resource-card" onclick="handleResourceClick('https://drive.usercontent.google.com/download?id=1iVXYCZ2fNwW1N-zPsB0MiLOrVan_TndV&export=download&authuser=0', 'Ol TTK Risos blong Tija')">
+                        <div class="resource-thumb pdf">📄</div>
+                        <div class="resource-body"><h3>Ol TTK Risos blong Tija</h3></div>
+                    </div>
                 </div>
             </details>
 
             <details name="resources" style="margin-top: 15px;">
                 <summary><span>📖</span> Bigfala Storian risos</summary>
-                <div style="padding: 15px; border: 2px solid #e2e8f0; border-top: none; border-radius: 0 0 12px 12px; background: white;">
-                    <div class="video-item" data-yt="8lGXluacQ10" onclick="playVideo('8lGXluacQ10', 'Bigfala Storian blong Baebol')"><h3>Bigfala Storian blong Baebol (video)</h3></div>
-                    <div class="video-item" data-yt="X3bWMFwDTa0" onclick="playVideo('X3bWMFwDTa0', 'Bigfala Storian blong Baebol in Song')"><h3>Bigfala Storian blong Baebol in Song (video)</h3></div>
-                    <div class="video-item" data-yt="08RpJjnxOfA" onclick="playVideo('08RpJjnxOfA', 'Bigfala Storian (song with actions)')"><h3>Bigfala Storian (song with actions)</h3></div>
-                    <div class="video-item" onclick="handleResourceClick('https://drive.usercontent.google.com/download?id=1VZ1-YgpYRMMHpGLUwT0mGdzubDFfDYNS&export=download&authuser=0', '25 Pictures for Bigfala Storian')"><h3>25 Pictures for Bigfala Storian (PDF)</h3></div>
-                    <div class="video-item" onclick="handleResourceClick('https://drive.usercontent.google.com/download?id=1qwsyB_ac5NppeivN8LsdwIA4WiAv0aO8&export=download&authuser=0', 'Teachers guide for Bigfala Storian')"><h3>Teachers' guide for Bigfala Storian</h3></div>
+                <div class="resource-card-grid">
+                    <div class="resource-card" data-yt="8lGXluacQ10" onclick="playVideo('8lGXluacQ10', 'Bigfala Storian blong Baebol')">
+                        <div class="resource-thumb" style="background-image:url('https://img.youtube.com/vi/8lGXluacQ10/hqdefault.jpg')"></div>
+                        <div class="resource-body"><h3>Bigfala Storian blong Baebol</h3><button class="download-btn" onclick="event.stopPropagation(); handleResourceClick('https://drive.google.com/uc?export=download&id=1W46yAS3drydTEbfHHx0iBrmWD-VAMd1G', 'Bigfala Storian blong Baebol.mp4');">📥 Download</button></div>
+                    </div>
+                    <div class="resource-card" data-yt="X3bWMFwDTa0" onclick="playVideo('X3bWMFwDTa0', 'Bigfala Storian blong Baebol in Song')">
+                        <div class="resource-thumb" style="background-image:url('https://img.youtube.com/vi/X3bWMFwDTa0/hqdefault.jpg')"></div>
+                        <div class="resource-body"><h3>Bigfala Storian blong Baebol in Song</h3><button class="download-btn" onclick="event.stopPropagation(); handleResourceClick('https://drive.google.com/uc?export=download&id=1LQTUcYD4SZAfOAUyYNFfYE1nLDcFlPhI', 'Bigfala Storian blong Baebol in Song.mp4');">📥 Download</button></div>
+                    </div>
+                    <div class="resource-card" data-yt="08RpJjnxOfA" onclick="playVideo('08RpJjnxOfA', 'Bigfala Storian (song with actions)')">
+                        <div class="resource-thumb" style="background-image:url('https://img.youtube.com/vi/08RpJjnxOfA/hqdefault.jpg')"></div>
+                        <div class="resource-body"><h3>Bigfala Storian (song with actions)</h3><button class="download-btn" onclick="event.stopPropagation(); handleResourceClick('https://drive.google.com/uc?export=download&id=1NvBnLrfscZ9LULC-J_Mtht3IVDmYVHrT', 'Bigfala Storian with action.mp4');">📥 Download</button></div>
+                    </div>
+                    <div class="resource-card" onclick="handleResourceClick('https://drive.usercontent.google.com/download?id=1VZ1-YgpYRMMHpGLUwT0mGdzubDFfDYNS&export=download&authuser=0', '25 Pictures for Bigfala Storian')">
+                        <div class="resource-thumb pdf">📄</div>
+                        <div class="resource-body"><h3>25 Pictures for Bigfala Storian</h3></div>
+                    </div>
+                    <div class="resource-card" onclick="handleResourceClick('https://drive.usercontent.google.com/download?id=1qwsyB_ac5NppeivN8LsdwIA4WiAv0aO8&export=download&authuser=0', 'Teachers guide for Bigfala Storian')">
+                        <div class="resource-thumb pdf">📄</div>
+                        <div class="resource-body"><h3>Teachers' guide for Bigfala Storian</h3></div>
+                    </div>
                 </div>
             </details>
 
             <details name="resources" style="margin-top: 15px;">
                 <summary><span>💡</span> Ol Narafala Topik</summary>
-                <div style="padding: 15px; border: 2px solid #e2e8f0; border-top: none; border-radius: 0 0 12px 12px; background: white;">
-                    <div class="video-item" data-yt="uLCVU0LEWlM" onclick="playVideo('uLCVU0LEWlM', 'Plan blong God long saed blong Kastom')"><h3>Plan blong God long saed blong Kastom (video)</h3></div>
-                    <div class="video-item" onclick="handleResourceClick('https://drive.usercontent.google.com/download?id=1dQqvqvyRNlOszZHYO_5cSX1Bu_DqihJi&export=download&authuser=0', 'Plan blong God long saed blong Kastom')"><h3>Plan blong God long saed blong Kastom (PDF)</h3></div>
-                    <div class="video-item" onclick="handleResourceClick('https://drive.usercontent.google.com/download?id=1rPWBVCYlfDD67ylwrX76YWwZcESYSKXi&export=download&authuser=0', 'Plan blong God long Saed blong Mared')"><h3>Plan blong God long Saed blong Mared (PDF)</h3></div>
-                    <div class="video-item" data-yt="6-pMjJYgciw" onclick="playVideo('6-pMjJYgciw', 'Hu i Bos?')"><h3>Hu i Bos (video)</h3></div>
+                <div class="resource-card-grid">
+                    <div class="resource-card" data-yt="uLCVU0LEWlM" onclick="playVideo('uLCVU0LEWlM', 'Plan blong God long saed blong Kastom')">
+                        <div class="resource-thumb" style="background-image:url('https://img.youtube.com/vi/uLCVU0LEWlM/hqdefault.jpg')"></div>
+                        <div class="resource-body"><h3>Plan blong God long saed blong Kastom</h3><button class="download-btn" onclick="event.stopPropagation(); handleResourceClick('https://drive.google.com/uc?export=download&id=1OF0mAyid9cSJ61X6yCE28g3Kpsg4XYve', 'Plan blong God long saed blong Kastom.mp4');">📥 Download</button></div>
+                    </div>
+                    <div class="resource-card" onclick="handleResourceClick('https://drive.usercontent.google.com/download?id=1dQqvqvyRNlOszZHYO_5cSX1Bu_DqihJi&export=download&authuser=0', 'Plan blong God long saed blong Kastom')">
+                        <div class="resource-thumb pdf">📄</div>
+                        <div class="resource-body"><h3>Plan blong God long saed blong Kastom</h3></div>
+                    </div>
+                    <div class="resource-card" onclick="handleResourceClick('https://drive.usercontent.google.com/download?id=1rPWBVCYlfDD67ylwrX76YWwZcESYSKXi&export=download&authuser=0', 'Plan blong God long Saed blong Mared')">
+                        <div class="resource-thumb pdf">📄</div>
+                        <div class="resource-body"><h3>Plan blong God long Saed blong Mared</h3></div>
+                    </div>
+                    <div class="resource-card" data-yt="6-pMjJYgciw" onclick="playVideo('6-pMjJYgciw', 'Hu i Bos?')">
+                        <div class="resource-thumb" style="background-image:url('https://img.youtube.com/vi/6-pMjJYgciw/hqdefault.jpg')"></div>
+                        <div class="resource-body"><h3>Hu i Bos</h3><button class="download-btn" onclick="event.stopPropagation(); handleResourceClick('https://drive.google.com/uc?export=download&id=1nb0mwMszRn8b-lOPzfC8tWX_XoHTqVss', 'Hu i Bos.mp4');">📥 Download</button></div>
+                    </div>
                 </div>
             </details>
 
@@ -713,7 +835,6 @@
             document.getElementById('videoPlayer').classList.add('active');
             document.getElementById('videoTitle').textContent = title;
 
-            // FIX: Re-inject the iframe HTML to make sure it exists (fixes the blank screen issue)
             const wrapper = document.getElementById('videoWrapper');
             wrapper.innerHTML = `
                 <iframe id="youtubeFrame" 
@@ -784,26 +905,25 @@
 			}
 		}
 		
-function handleResourceClick(url, fileName) {
-    // Show toast
-    const toast = document.getElementById('downloadToast');
-    toast.style.display = 'none';
-    toast.style.animation = 'none';
-    void toast.offsetWidth;
-    toast.style.animation = '';
-    toast.style.display = 'block';
-    setTimeout(() => { toast.style.display = 'none'; }, 5000);
+		function handleResourceClick(url, fileName) {
+			const toast = document.getElementById('downloadToast');
+			toast.style.display = 'none';
+			toast.style.animation = 'none';
+			void toast.offsetWidth;
+			toast.style.animation = '';
+			toast.style.display = 'block';
+			setTimeout(() => { toast.style.display = 'none'; }, 5000);
 
-    // Trigger download via hidden iframe — no navigation, no black screen
-    let dlFrame = document.getElementById('silentDownloadFrame');
-    if (!dlFrame) {
-        dlFrame = document.createElement('iframe');
-        dlFrame.id = 'silentDownloadFrame';
-        dlFrame.style.display = 'none';
-        document.body.appendChild(dlFrame);
-    }
-    dlFrame.src = url;
-}
+			// Trigger download via hidden iframe — no navigation, no black screen
+			let dlFrame = document.getElementById('silentDownloadFrame');
+			if (!dlFrame) {
+				dlFrame = document.createElement('iframe');
+				dlFrame.id = 'silentDownloadFrame';
+				dlFrame.style.display = 'none';
+				document.body.appendChild(dlFrame);
+			}
+			dlFrame.src = url;
+		}
 
 		function closeModal() {
 			const modal = document.getElementById('customModal');
@@ -826,13 +946,16 @@ function handleResourceClick(url, fileName) {
             }
         }
 		
-		document.querySelectorAll('.video-item[data-yt]').forEach(item => {
+        // Thumbnails for standard video-items in module lists (exclude resource cards which handle their own thumbs)
+		document.querySelectorAll('.video-item[data-yt]:not(.resource-card)').forEach(item => {
 			const ytId = item.dataset.yt;
 			const thumb = document.createElement('div');
 			thumb.className = 'video-thumb';
-			thumb.style.backgroundImage = `url('https://img.youtube.com/vi/${ytId}/sddefault.jpg')`;
+			thumb.style.backgroundImage = `url('https://img.youtube.com/vi/${ytId}/hqdefault.jpg')`;
 			item.insertBefore(thumb, item.firstChild);
-		});	
+		});
+
+
 
 		function openResource(url, title, type = 'web') {
 		    const currentVisible = document.querySelector('.video-list.active');
@@ -872,15 +995,6 @@ function handleResourceClick(url, fileName) {
                 navigator.serviceWorker.register('./sw.js').catch(err => console.log(err));
             });
         }
-		
-		document.querySelectorAll('#resources .video-item:not([data-yt])').forEach(item => {
-			if (!item.querySelector('.pdf-thumb')) {
-				const thumb = document.createElement('div');
-				thumb.className = 'pdf-thumb';
-				thumb.innerHTML = '📜';
-				item.insertBefore(thumb, item.firstChild);
-			}
-		});
     </script>
 </body>
 </html>
